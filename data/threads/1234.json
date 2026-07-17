@@ -1,4 +1,360 @@
 {
-  "threads": [],
-  "messages": []
+  "threads": [
+    {
+      "id": "cmQizRX3XegCmU1K",
+      "title": "Caveman Chat Begins",
+      "status": "regular",
+      "createdAt": "2026-07-17T18:10:07.640Z",
+      "updatedAt": "2026-07-17T18:10:16.573Z"
+    },
+    {
+      "id": "HlbeLuPmwe7IdnhB",
+      "title": "\"Emotions About Tables\"",
+      "status": "regular",
+      "createdAt": "2026-07-17T18:10:40.204Z",
+      "updatedAt": "2026-07-17T18:13:02.813Z"
+    },
+    {
+      "id": "YIVRODeEwpVw2bUw",
+      "title": "\"Emotions and Tables\"",
+      "status": "regular",
+      "createdAt": "2026-07-17T18:16:12.118Z",
+      "updatedAt": "2026-07-17T18:16:14.963Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "D46OEnO4oADa32Yx",
+      "threadId": "cmQizRX3XegCmU1K",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Hello!"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:10:09.481Z"
+    },
+    {
+      "id": "qA0vtIOZiiy1G3g2",
+      "threadId": "cmQizRX3XegCmU1K",
+      "parentId": "D46OEnO4oADa32Yx",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Hi! How can caveman help?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0005a8473c8bdf4b006a5a7000b3348190885e270cd24b2d83"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:10:09.498Z"
+    },
+    {
+      "id": "tnd1jxr6jqhyOe7e",
+      "threadId": "cmQizRX3XegCmU1K",
+      "parentId": "qA0vtIOZiiy1G3g2",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Tell me a nice joke"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:10:16.560Z"
+    },
+    {
+      "id": "pxopX29RYrh2pqaL",
+      "threadId": "cmQizRX3XegCmU1K",
+      "parentId": "tnd1jxr6jqhyOe7e",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Why dog sit on fire? \n\nBecause he want hot dog! Ha!",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0005a8473c8bdf4b006a5a700812788190b6d46ebacd10c5f5"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:10:16.573Z"
+    },
+    {
+      "id": "PwPwekwg6hEXo2vx",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "How do I feel about tables?"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:10:41.150Z"
+    },
+    {
+      "id": "C8DzUoF6CuYBmUsM",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "PwPwekwg6hEXo2vx",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "You feel surprise. Medium strong.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d29156255b7e01a006a5a7020e51081968dee2f7a108ee990"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:10:41.168Z"
+    },
+    {
+      "id": "q3UgG4oI7i1F46Re",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "C8DzUoF6CuYBmUsM",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Do I like bikes?"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:11:05.784Z"
+    },
+    {
+      "id": "U7OMyit23h9ImWR7",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "q3UgG4oI7i1F46Re",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Bike make you feel fear. High strong. Not like.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d29156255b7e01a006a5a703982e48196bc39dbe58914bb24"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:11:05.812Z"
+    },
+    {
+      "id": "ZZTH5G69bQ0BPMuc",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "q3UgG4oI7i1F46Re",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "No. You feel fear. High strong.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d29156255b7e01a006a5a7042fff08196b63d16da5d57765d"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:11:15.342Z"
+    },
+    {
+      "id": "8EYUGJZHYVhWylNb",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "ZZTH5G69bQ0BPMuc",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "How do you think I'd feel about pizza ovens?"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:11:46.348Z"
+    },
+    {
+      "id": "0dmKyy9pWciyyp3B",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "8EYUGJZHYVhWylNb",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Hmm, no data. Guessing: maybe curiosity? Medium strong. ",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d29156255b7e01a006a5a706212448196860d936a4056bc36"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:11:46.374Z"
+    },
+    {
+      "id": "gp3WLjjh5YgrfxP7",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "0dmKyy9pWciyyp3B",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Can you still guess though?"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:13:02.801Z"
+    },
+    {
+      "id": "tye34QYmfCMFaiq3",
+      "threadId": "HlbeLuPmwe7IdnhB",
+      "parentId": "gp3WLjjh5YgrfxP7",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Yes! I guess you feel excitement. Medium strong. ",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d29156255b7e01a006a5a70ae880081968dcf0ed3f586900d"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:13:02.813Z"
+    },
+    {
+      "id": "BivR7igiTzCFXtIp",
+      "threadId": "YIVRODeEwpVw2bUw",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Tell me how my body feels around tables"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:16:13.966Z"
+    },
+    {
+      "id": "ImDRL7esmGjncBOy",
+      "threadId": "YIVRODeEwpVw2bUw",
+      "parentId": "BivR7igiTzCFXtIp",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Table make you feel surprise. Medium strength. Not strong, not weak. Curious about table.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_08d4e75143b30c75006a5a716d10808196bd938b7367591736"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T18:16:13.987Z"
+    }
+  ]
 }

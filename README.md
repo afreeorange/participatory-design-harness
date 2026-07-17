@@ -29,3 +29,18 @@ npx assistant-ui add
 ## License
 
 MIT
+
+---
+
+## TODO
+
+- [ ] Allow participants to pick the timespan
+- [ ] Title above chats
+- [ ] Model picker (?)
+- [ ] Collapsible indicator
+- [ ] Quotes around chat summaries?
+- [ ] Try with Lab key and lab data
+- [ ] Remove edit button
+- [ ] Remove loop button
+- [ ] Remove markdown button
+- [-] Remove copy button

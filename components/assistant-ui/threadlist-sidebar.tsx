@@ -23,7 +23,7 @@ export function ThreadListSidebar({ ...props }: React.ComponentProps<typeof Side
                   <Triangle className="size-4 aui-sidebar-header-icon" />
                 </div>
                 <div className="flex flex-col gap-0.5 me-6 leading-none aui-sidebar-header-heading">
-                  <span className="font-semibold aui-sidebar-header-title">Adrienne!</span>
+                  <span className="font-semibold aui-sidebar-header-title">Hello Co-Researcher!</span>
                 </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
