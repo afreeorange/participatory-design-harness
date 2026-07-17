@@ -1,0 +1,183 @@
+{
+  "threads": [
+    {
+      "id": "TCupqP7mloTWrRPz",
+      "title": "\"Seating Humor\"",
+      "status": "regular",
+      "createdAt": "2026-07-17T15:15:41.949Z",
+      "updatedAt": "2026-07-17T15:25:50.598Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "GjLMyq46y7fOeBbO",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Tell me a joke about chairs"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:15:42.228Z"
+    },
+    {
+      "id": "eppalpYlgntnnCNn",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "GjLMyq46y7fOeBbO",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Tell me a joke about chairs"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:16:01.939Z"
+    },
+    {
+      "id": "Nd4yeQhU4e9oC59a",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "eppalpYlgntnnCNn",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Tell me a joke about chairs"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:17:23.061Z"
+    },
+    {
+      "id": "WAEGLvNAhwCrdO3I",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "Nd4yeQhU4e9oC59a",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Tell me a joke about chairs"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:19:48.812Z"
+    },
+    {
+      "id": "9B6ax9P8ykR7dzPz",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "WAEGLvNAhwCrdO3I",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Why did the chair break up with the table?  \n\nBecause it couldn’t handle the pressure!",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_046e551abe4b2e34006a5a481456c8819684da2ed99e3d04e1"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:19:48.823Z"
+    },
+    {
+      "id": "1FHuG0jRKX5PFSTC",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "9B6ax9P8ykR7dzPz",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "That's excellent. Tell me another one"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:20:00.752Z"
+    },
+    {
+      "id": "RCVHCTzR6ZWjnbnJ",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "1FHuG0jRKX5PFSTC",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Why did the chair go to therapy?  \n\nIt had too many emotional baggage!",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_046e551abe4b2e34006a5a481fe8f88196bc11f7c55cc79168"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:20:00.767Z"
+    },
+    {
+      "id": "p7tCh3oiTDok31Rw",
+      "threadId": "TCupqP7mloTWrRPz",
+      "parentId": "1FHuG0jRKX5PFSTC",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Why did the chair go to therapy?  \n\nIt had too many emotional baggage!",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_046e551abe4b2e34006a5a497e3dd88196b4c1f46b6eaf5d68"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-17T15:25:50.598Z"
+    }
+  ]
+}
