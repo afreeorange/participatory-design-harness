@@ -4,8 +4,8 @@ import "./fonts.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Adrienne!",
-  description: "Patient assistant",
+  title: "Phendo",
+  description: "Phendo Participatory Design Evaluation Harness",
 };
 
 export default function RootLayout({

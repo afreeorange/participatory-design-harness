@@ -154,9 +154,9 @@ const ThreadRoot: FC<{ isEmpty: boolean }> = ({ isEmpty }) => {
             <ThreadScrollToBottom />
             <ThreadFollowupSuggestions />
             <Composer />
-            <AuiIf condition={(s) => isNewChatView(s) && s.composer.isEmpty}>
+            {/* <AuiIf condition={(s) => isNewChatView(s) && s.composer.isEmpty}>
               <ThreadSuggestions />
-            </AuiIf>
+            </AuiIf> */}
           </ThreadPrimitive.ViewportFooter>
         </div>
       </ThreadPrimitive.Viewport>
@@ -192,10 +192,13 @@ const ThreadScrollToBottom: FC = () => {
 };
 
 const ThreadWelcome: FC = () => {
-  const hasMultipleThreads = useAuiState((s) => s.threads.threadIds.length > 1);
+  const hasMultipleThreads = useAuiState((s) => {
+    return s.threads.threadIds.length > 0;
+  });
+
   return (
     <div className="flex flex-col items-center mb-6 px-4 text-center aui-thread-welcome-root">
-      <h1 className="slide-in-from-bottom-1 fill-mode-both font-semibold text-2xl animate-in duration-200 aui-thread-welcome-message-inner fade-in">
+      <h1 className="slide-in-from-bottom-1 fill-mode-both font-semibold text-4xl animate-in duration-200 aui-thread-welcome-message-inner fade-in">
         {hasMultipleThreads ? "Welcome back!" : "Hello 👋"}
       </h1>
     </div>
@@ -244,8 +247,8 @@ const Composer: FC = () => {
       >
         <ComposerAttachments />
         <ComposerPrimitive.Input
-          placeholder="Send a message..."
-          className="bg-transparent px-2.5 py-1 outline-none w-full min-h-10 max-h-32 placeholder:text-muted-foreground/80 text-base caret-primary resize-none aui-composer-input"
+          placeholder="What would you like to say?"
+          className="bg-transparent px-2.5 py-1 outline-none w-full min-h-10 max-h-32 placeholder:text-primary/50 text-base caret-primary resize-none aui-composer-input"
           rows={1}
           autoFocus
           enterKeyHint="send"
