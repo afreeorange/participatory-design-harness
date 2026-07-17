@@ -4,7 +4,7 @@ import "./fonts.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Phendo",
+  title: "Phendo Study",
   description: "Phendo Participatory Design Evaluation Harness",
 };
 

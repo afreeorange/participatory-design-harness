@@ -59,6 +59,7 @@ import {
   type FC,
   type PropsWithChildren,
 } from "react";
+import { ModelSelector } from "@/components/assistant-ui/model-selector";
 
 export type ThreadGroupPart = MessagePrimitive.GroupedParts.GroupPart;
 
@@ -249,7 +250,21 @@ const Composer: FC = () => {
 const ComposerAction: FC = () => {
   return (
     <div className="relative flex justify-between items-center aui-composer-action-wrapper">
-      <ComposerAddAttachment />
+      <div className="flex items-center gap-1.5">
+        <ComposerAddAttachment />
+        <ModelSelector
+          models={[
+            { id: "gpt-4o-mini", name: "GPT-4o mini", description: "Fast & affordable" },
+            { id: "gpt-4o", name: "GPT-4o", description: "Great for most tasks" },
+            { id: "gpt-4.1-mini", name: "GPT-4.1 mini", description: "Fast, smart, affordable" },
+            { id: "gpt-4.1", name: "GPT-4.1", description: "Flagship model" },
+            { id: "o4-mini", name: "o4-mini", description: "Fast reasoning", efforts: true },
+          ]}
+          defaultValue="gpt-4o-mini"
+          variant="ghost"
+          size="sm"
+        />
+      </div>
       <div className="flex items-center gap-1.5">
         <AuiIf condition={(s) => s.thread.capabilities.dictation}>
           <AuiIf condition={(s) => s.composer.dictation == null}>
