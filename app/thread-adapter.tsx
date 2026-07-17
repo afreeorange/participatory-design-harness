@@ -21,9 +21,7 @@ export const threadListAdapter: RemoteThreadListAdapter = {
     };
   },
   async initialize(_threadId: string) {
-    const { id } = await fetch("/api/threads", { method: "POST" }).then((r) =>
-      r.json(),
-    );
+    const { id } = await fetch("/api/threads", { method: "POST" }).then((r) => r.json());
     return { remoteId: id, externalId: undefined };
   },
   async rename(remoteId, title) {
@@ -77,7 +75,10 @@ export const threadListAdapter: RemoteThreadListAdapter = {
         ) => ({
           async load() {
             const { remoteId } = aui.threadListItem().getState();
-            if (!remoteId) return { messages: [] as import("@assistant-ui/react").MessageFormatItem<TMessage>[] };
+            if (!remoteId)
+              return {
+                messages: [] as import("@assistant-ui/react").MessageFormatItem<TMessage>[],
+              };
             const rows: import("@assistant-ui/react").MessageStorageEntry<TStorageFormat>[] =
               await fetch(`/api/threads/${remoteId}/messages`).then((r) => r.json());
             return {
@@ -100,10 +101,6 @@ export const threadListAdapter: RemoteThreadListAdapter = {
       }),
       [aui],
     );
-    return (
-      <RuntimeAdapterProvider adapters={{ history }}>
-        {children}
-      </RuntimeAdapterProvider>
-    );
+    return <RuntimeAdapterProvider adapters={{ history }}>{children}</RuntimeAdapterProvider>;
   },
 };

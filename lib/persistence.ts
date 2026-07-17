@@ -112,10 +112,7 @@ export async function listMessages(threadId: string): Promise<MessageRecord[]> {
   const store = await readStore();
   return store.messages
     .filter((m) => m.threadId === threadId)
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 }
 
 export async function appendMessage(

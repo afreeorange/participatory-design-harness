@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  AssistantRuntimeProvider,
-  useRemoteThreadListRuntime,
-} from "@assistant-ui/react";
+import { AssistantRuntimeProvider, useRemoteThreadListRuntime } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { threadListAdapter } from "./thread-adapter";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";

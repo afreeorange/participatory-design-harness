@@ -11,9 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ThreadList } from "@/components/assistant-ui/thread-list";
 
-export function ThreadListSidebar({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function ThreadListSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props} className="bg-muted">
       <SidebarHeader className="mb-2 border-b aui-sidebar-header">
@@ -25,9 +23,7 @@ export function ThreadListSidebar({
                   <Triangle className="size-4 aui-sidebar-header-icon" />
                 </div>
                 <div className="flex flex-col gap-0.5 me-6 leading-none aui-sidebar-header-heading">
-                  <span className="font-semibold aui-sidebar-header-title">
-                    Adrienne!
-                  </span>
+                  <span className="font-semibold aui-sidebar-header-title">Adrienne!</span>
                 </div>
               </SidebarMenuButton>
             </SidebarMenuItem>

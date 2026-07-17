@@ -1,11 +1,6 @@
 import { openai } from "@ai-sdk/openai";
 import { frontendTools } from "@assistant-ui/react-ai-sdk";
-import {
-  type JSONSchema7,
-  streamText,
-  convertToModelMessages,
-  type UIMessage,
-} from "ai";
+import { type JSONSchema7, streamText, convertToModelMessages, type UIMessage } from "ai";
 import { loadSystemPrompt, loadPatientData } from "@/lib/persistence";
 
 export async function POST(req: Request) {
@@ -17,16 +12,9 @@ export async function POST(req: Request) {
     tools?: Record<string, { description?: string; parameters: JSONSchema7 }>;
   } = await req.json();
 
-  const [systemPrompt, patientData] = await Promise.all([
-    loadSystemPrompt(),
-    loadPatientData(),
-  ]);
+  const [systemPrompt, patientData] = await Promise.all([loadSystemPrompt(), loadPatientData()]);
 
-  const system = [
-    systemPrompt,
-    "--- Patient Data (CSV) ---",
-    patientData,
-  ].join("\n\n");
+  const system = [systemPrompt, "--- Patient Data (CSV) ---", patientData].join("\n\n");
 
   const result = streamText({
     model: openai("gpt-4o-mini"),
@@ -38,7 +26,6 @@ export async function POST(req: Request) {
   });
 
   return result.toUIMessageStreamResponse({
-    onError: (error) =>
-      error instanceof Error ? error.message : String(error),
+    onError: (error) => (error instanceof Error ? error.message : String(error)),
   });
 }

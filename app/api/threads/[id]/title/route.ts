@@ -2,10 +2,7 @@ import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { updateThread } from "@/lib/persistence";
 
-export async function POST(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { messages } = await req.json();
 

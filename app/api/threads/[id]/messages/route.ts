@@ -1,9 +1,6 @@
 import { listMessages, appendMessage } from "@/lib/persistence";
 
-export async function GET(
-  _req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const messages = await listMessages(id);
   // return in the shape the history adapter expects: { id, parent_id, format, content }
@@ -17,10 +14,7 @@ export async function GET(
   );
 }
 
-export async function POST(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const body = (await req.json()) as {
     id: string;
