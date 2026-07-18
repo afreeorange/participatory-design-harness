@@ -37,14 +37,8 @@
       "title": "Data Table Analysis Request",
       "status": "regular",
       "createdAt": "2026-07-18T14:47:55.880Z",
-      "updatedAt": "2026-07-18T14:47:58.903Z"
-    },
-    {
-      "id": "cF93MwMK5sUCN0ic",
-      "title": "\"Test Conversation Dynamics\"",
-      "status": "regular",
-      "createdAt": "2026-07-18T14:48:30.595Z",
-      "updatedAt": "2026-07-18T14:48:32.885Z"
+      "updatedAt": "2026-07-18T17:35:45.285Z",
+      "dataTimespan": "all_available"
     },
     {
       "id": "pa5tupTB5cwZb6lZ",
@@ -53,6 +47,14 @@
       "createdAt": "2026-07-18T14:50:27.812Z",
       "updatedAt": "2026-07-18T14:51:05.365Z",
       "dataTimespan": "past_1_month"
+    },
+    {
+      "id": "dAzVzuv2HbIeNvQE",
+      "title": "\"Testing Conversation Dynamics\"",
+      "status": "regular",
+      "createdAt": "2026-07-18T17:28:21.391Z",
+      "updatedAt": "2026-07-18T17:35:03.094Z",
+      "dataTimespan": "all_available"
     }
   ],
   "messages": [
@@ -365,50 +367,6 @@
       "createdAt": "2026-07-18T14:47:57.902Z"
     },
     {
-      "id": "ikCnwJd9VGEg1cvI",
-      "threadId": "cF93MwMK5sUCN0ic",
-      "parentId": null,
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "user",
-        "metadata": {
-          "custom": {}
-        },
-        "parts": [
-          {
-            "type": "text",
-            "text": "Test"
-          }
-        ]
-      },
-      "createdAt": "2026-07-18T14:48:31.948Z"
-    },
-    {
-      "id": "DFEwx4rBAuugDIsk",
-      "threadId": "cF93MwMK5sUCN0ic",
-      "parentId": "ikCnwJd9VGEg1cvI",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "assistant",
-        "parts": [
-          {
-            "type": "step-start"
-          },
-          {
-            "type": "text",
-            "text": "Me here. You send task. I do.",
-            "providerMetadata": {
-              "openai": {
-                "itemId": "msg_0e3022bdcabffff1006a5b923f5c748196aa733a77bcdc1bdf"
-              }
-            },
-            "state": "done"
-          }
-        ]
-      },
-      "createdAt": "2026-07-18T14:48:31.962Z"
-    },
-    {
       "id": "5Ld7GbTBgeYwFwxE",
       "threadId": "pa5tupTB5cwZb6lZ",
       "parentId": null,
@@ -451,6 +409,138 @@
         ]
       },
       "createdAt": "2026-07-18T14:50:29.007Z"
+    },
+    {
+      "id": "T6F1SuQYsWd8KuG6",
+      "threadId": "dAzVzuv2HbIeNvQE",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Test"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T17:28:23.819Z"
+    },
+    {
+      "id": "7OLKDxov7Ncedsbm",
+      "threadId": "dAzVzuv2HbIeNvQE",
+      "parentId": "T6F1SuQYsWd8KuG6",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me see data. Me ready. You want do what with it?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_094cccdabfe8a07d006a5bb7b72f3881948a3aebb540bbb342"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T17:28:23.828Z"
+    },
+    {
+      "id": "yScE9yLz9dRYsKE4",
+      "threadId": "dAzVzuv2HbIeNvQE",
+      "parentId": "7OLKDxov7Ncedsbm",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "What anout jokes? And burgers?"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T17:29:43.946Z"
+    },
+    {
+      "id": "8uL00rqvDFykywhd",
+      "threadId": "dAzVzuv2HbIeNvQE",
+      "parentId": "yScE9yLz9dRYsKE4",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me tell joke: Why burger go gym? To get beefy.\n\nBurger good. Me like. You want joke list or burger recipe?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_094cccdabfe8a07d006a5bb806ff548194a033db891199159d"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T17:29:43.970Z"
+    },
+    {
+      "id": "0mb3OYDd6A8FBogd",
+      "threadId": "dAzVzuv2HbIeNvQE",
+      "parentId": "8uL00rqvDFykywhd",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Say anything"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T17:35:03.068Z"
+    },
+    {
+      "id": "cvInVN4uH0jfHWyP",
+      "threadId": "dAzVzuv2HbIeNvQE",
+      "parentId": "0mb3OYDd6A8FBogd",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me say: Sky big. Burger tasty. Jokes dumb but make laugh. You do good.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_094cccdabfe8a07d006a5bb9463ed8819481eaf742951c2f25"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T17:35:03.094Z"
     }
   ]
 }

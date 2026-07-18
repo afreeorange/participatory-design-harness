@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     config?: { modelName?: string; dataTimespan?: string };
   } = await req.json();
 
-  const dataTimespan = config?.dataTimespan ?? "past_3_months";
+  const dataTimespan = config?.dataTimespan ?? "all_available";
 
   const badge = kleur.bold().white().bgBlue(" LLM ");
   const count = kleur.green(messages.length.toString()) + kleur.green(" messages");
