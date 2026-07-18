@@ -117,7 +117,12 @@ export async function listMessages(threadId: string): Promise<MessageRecord[]> {
 
 export async function appendMessage(
   threadId: string,
-  msg: { id: string; parentId: string | null; format: string; content: unknown },
+  msg: {
+    id: string;
+    parentId: string | null;
+    format: string;
+    content: unknown;
+  },
 ): Promise<void> {
   const store = await readStore();
   store.messages.push({
