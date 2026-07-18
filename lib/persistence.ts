@@ -141,6 +141,73 @@ export async function appendMessage(
   await writeStore(store);
 }
 
+// -- Search --
+
+function extractText(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (!content || typeof content !== "object") return "";
+  const parts = Array.isArray(content)
+    ? content
+    : "parts" in content && Array.isArray((content as { parts: unknown }).parts)
+      ? (content as { parts: unknown[] }).parts
+      : [];
+  return parts
+    .map((p) =>
+      typeof p === "object" && p && "text" in p
+        ? String((p as { text: unknown }).text)
+        : "",
+    )
+    .join(" ");
+}
+
+const SNIPPET_RADIUS = 40;
+
+function snippet(text: string, q: string): string | null {
+  const idx = text.toLowerCase().indexOf(q);
+  if (idx === -1) return null;
+  const start = Math.max(0, idx - SNIPPET_RADIUS);
+  const end = Math.min(text.length, idx + q.length + SNIPPET_RADIUS);
+  return (
+    (start > 0 ? "..." : "") +
+    text.slice(start, end).trim() +
+    (end < text.length ? "..." : "")
+  );
+}
+
+export type ThreadSearchResult = {
+  id: string;
+  title: string | null;
+  preview: string | null;
+};
+
+export async function searchThreads(
+  query: string,
+): Promise<ThreadSearchResult[]> {
+  const store = await readStore();
+  const q = query.toLowerCase();
+  const snippets = new Map<string, string | null>();
+
+  for (const msg of store.messages) {
+    if (snippets.has(msg.threadId)) continue;
+    const text = extractText(msg.content);
+    const s = snippet(text, q);
+    if (s) snippets.set(msg.threadId, s);
+  }
+  for (const t of store.threads) {
+    if (!snippets.has(t.id) && t.title?.toLowerCase().includes(q)) {
+      snippets.set(t.id, null);
+    }
+  }
+
+  return store.threads
+    .filter((t) => t.status === "regular" && snippets.has(t.id))
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    )
+    .map((t) => ({ id: t.id, title: t.title, preview: snippets.get(t.id) ?? null }));
+}
+
 // -- Context loaders --
 
 export async function loadSystemPrompt(): Promise<string> {

@@ -216,7 +216,7 @@ const ThreadWelcome: FC = () => {
 
   return (
     <div className="flex flex-col items-center mb-6 px-4 text-center aui-thread-welcome-root">
-      <h1 className="slide-in-from-bottom-1 fill-mode-both font-semibold text-4xl animate-in duration-200 aui-thread-welcome-message-inner fade-in">
+      <h1 className="slide-in-from-bottom-full fill-mode-both font-semibold text-4xl tracking-tight animate-in duration-200 aui-thread-welcome-message-inner fade-in">
         {hasMultipleThreads ? "Welcome back!" : "Hello 👋"}
       </h1>
     </div>
@@ -363,8 +363,6 @@ const DataTimespanSelector: FC = () => {
       // disabled: available.length > 0 && !available.includes(t.id),
     }),
   );
-
-  console.log(items);
 
   return (
     <div className="flex items-center px-1 text-muted-foreground text-xs">

@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import {
@@ -16,23 +15,19 @@ import {
   ArchiveIcon,
   MoreHorizontalIcon,
   PlusIcon,
-  SearchIcon,
   TrashIcon,
 } from "lucide-react";
 import {
   forwardRef,
   Fragment,
   useMemo,
-  useState,
   type ComponentPropsWithoutRef,
   type FC,
 } from "react";
 import { DAY_IN_MS } from "@/app/constants";
 
 export const ThreadList: FC = () => {
-  const [search, setSearch] = useState("");
-  const hasThreads = useAuiState((s) => s.threads.threadIds.length > 0);
-  const { state, toggleSidebar } = useSidebar();
+  const { state } = useSidebar();
   const collapsed = state === "collapsed";
 
   if (collapsed) {
@@ -49,19 +44,8 @@ export const ThreadList: FC = () => {
             />
           }
         >
-          <PlusIcon className="size-4 text-primary" />
+          <PlusIcon className="size-6 text-primary" />
         </ThreadListPrimitive.New>
-        {hasThreads && (
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            className="cursor-pointer"
-            aria-label="Search"
-            onClick={toggleSidebar}
-          >
-            <SearchIcon className="size-4 text-primary" />
-          </Button>
-        )}
       </ThreadListRoot>
     );
   }
@@ -69,45 +53,10 @@ export const ThreadList: FC = () => {
   return (
     <ThreadListRoot>
       <ThreadListNew />
-      {hasThreads && (
-        <ThreadListSearch value={search} onValueChange={setSearch} />
-      )}
-      <ThreadListItems searchQuery={hasThreads ? search : ""} />
+      <ThreadListItems />
     </ThreadListRoot>
   );
 };
-
-export const ThreadListSearch = forwardRef<
-  HTMLInputElement,
-  Omit<ComponentPropsWithoutRef<typeof Input>, "value" | "onChange"> & {
-    value: string;
-    onValueChange: (value: string) => void;
-  }
->(({ className, value, onValueChange, ...props }, ref) => {
-  return (
-    <div data-slot="aui_thread-list-search" className="relative px-0.5 py-1">
-      <SearchIcon
-        data-slot="aui_thread-list-search-icon"
-        className="top-1/2 absolute size-4 text-primary -translate-y-1/2 pointer-events-none start-3"
-      />
-      <Input
-        ref={ref}
-        type="search"
-        value={value}
-        onChange={(event) => onValueChange(event.target.value)}
-        aria-label="Search"
-        placeholder="Search"
-        className={cn(
-          "ps-8 h-8 placeholder:text-primary/50 text-sm",
-          className,
-        )}
-        {...props}
-      />
-    </div>
-  );
-});
-
-ThreadListSearch.displayName = "ThreadListSearch";
 
 export const ThreadListRoot: FC<
   ComponentPropsWithoutRef<typeof ThreadListPrimitive.Root>
@@ -121,9 +70,10 @@ export const ThreadListRoot: FC<
   );
 };
 
-export const ThreadListItems: FC<
-  ComponentPropsWithoutRef<"div"> & { searchQuery?: string }
-> = ({ className, searchQuery = "", ...props }) => {
+export const ThreadListItems: FC<ComponentPropsWithoutRef<"div">> = ({
+  className,
+  ...props
+}) => {
   return (
     <div
       data-slot="aui_thread-list-items"
@@ -139,7 +89,7 @@ export const ThreadListItems: FC<
             Chat threads
           </h1>
         </AuiIf>
-        <ThreadListItemGroups searchQuery={searchQuery} />
+        <ThreadListItemGroups />
       </AuiIf>
     </div>
   );
@@ -156,30 +106,16 @@ const dateGroupLabel = (
 
 type ThreadListGroup = { label: string; indices: number[] };
 
-const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
-  searchQuery = "",
-}) => {
+const ThreadListItemGroups: FC = () => {
   const threadIds = useAuiState((s) => s.threads.threadIds);
   const threadItems = useAuiState((s) => s.threads.threadItems);
 
-  const query = searchQuery.trim().toLowerCase();
-
-  const { filteredIndices, groups } = useMemo(() => {
+  const groups = useMemo(() => {
     const itemsById = new Map(threadItems.map((item) => [item.id, item]));
     const dates = threadIds.map((id) => itemsById.get(id)?.lastMessageAt);
-    const filteredIndices = threadIds
-      .map((id, index) => ({ id, index }))
-      .filter(
-        ({ id }) =>
-          !query ||
-          (itemsById.get(id)?.title || "New Chat")
-            .toLowerCase()
-            .includes(query),
-      )
-      .map(({ index }) => index);
-    if (!filteredIndices.some((index) => dates[index])) {
-      return { filteredIndices, groups: null };
-    }
+    const allIndices = threadIds.map((_, i) => i);
+
+    if (!allIndices.some((i) => dates[i])) return null;
 
     const now = new Date();
     const startOfToday = new Date(
@@ -189,7 +125,7 @@ const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
     ).getTime();
     const time = (index: number) =>
       dates[index]?.getTime() ?? Number.MAX_SAFE_INTEGER;
-    const sorted = [...filteredIndices].sort((a, b) => time(b) - time(a));
+    const sorted = [...allIndices].sort((a, b) => time(b) - time(a));
 
     const result: ThreadListGroup[] = [];
     for (const index of sorted) {
@@ -201,31 +137,18 @@ const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
         result.push({ label, indices: [index] });
       }
     }
-    return { filteredIndices, groups: result };
-  }, [threadIds, threadItems, query]);
-
-  if (query && filteredIndices.length === 0) {
-    return (
-      <div
-        data-slot="aui_thread-list-empty"
-        className="px-2.5 py-4 text-muted-foreground text-sm"
-      >
-        No threads found
-      </div>
-    );
-  }
+    return result;
+  }, [threadIds, threadItems]);
 
   if (!groups) {
-    return filteredIndices.map((index) => {
-      return (
-        <Fragment key={threadIds[index]}>
-          <ThreadListPrimitive.ItemByIndex
-            index={index}
-            components={{ ThreadListItem }}
-          />
-        </Fragment>
-      );
-    });
+    return threadIds.map((id, index) => (
+      <Fragment key={id}>
+        <ThreadListPrimitive.ItemByIndex
+          index={index}
+          components={{ ThreadListItem }}
+        />
+      </Fragment>
+    ));
   }
 
   return groups.map((group) => (
