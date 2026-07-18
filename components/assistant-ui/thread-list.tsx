@@ -11,19 +11,8 @@ import {
   useAuiState,
 } from "@assistant-ui/react";
 import { useSidebar } from "@/components/ui/sidebar";
-import {
-  ArchiveIcon,
-  MoreHorizontalIcon,
-  PlusIcon,
-  TrashIcon,
-} from "lucide-react";
-import {
-  forwardRef,
-  Fragment,
-  useMemo,
-  type ComponentPropsWithoutRef,
-  type FC,
-} from "react";
+import { ArchiveIcon, MoreHorizontalIcon, PlusIcon, TrashIcon } from "lucide-react";
+import { forwardRef, Fragment, useMemo, type ComponentPropsWithoutRef, type FC } from "react";
 import { DAY_IN_MS } from "@/app/constants";
 
 export const ThreadList: FC = () => {
@@ -58,9 +47,10 @@ export const ThreadList: FC = () => {
   );
 };
 
-export const ThreadListRoot: FC<
-  ComponentPropsWithoutRef<typeof ThreadListPrimitive.Root>
-> = ({ className, ...props }) => {
+export const ThreadListRoot: FC<ComponentPropsWithoutRef<typeof ThreadListPrimitive.Root>> = ({
+  className,
+  ...props
+}) => {
   return (
     <ThreadListPrimitive.Root
       data-slot="aui_thread-list-root"
@@ -70,10 +60,7 @@ export const ThreadListRoot: FC<
   );
 };
 
-export const ThreadListItems: FC<ComponentPropsWithoutRef<"div">> = ({
-  className,
-  ...props
-}) => {
+export const ThreadListItems: FC<ComponentPropsWithoutRef<"div">> = ({ className, ...props }) => {
   return (
     <div
       data-slot="aui_thread-list-items"
@@ -95,10 +82,7 @@ export const ThreadListItems: FC<ComponentPropsWithoutRef<"div">> = ({
   );
 };
 
-const dateGroupLabel = (
-  date: Date | undefined,
-  startOfToday: number,
-): string => {
+const dateGroupLabel = (date: Date | undefined, startOfToday: number): string => {
   if (!date || date.getTime() >= startOfToday) return "Today";
   if (date.getTime() >= startOfToday - DAY_IN_MS) return "Yesterday";
   return "Earlier";
@@ -118,13 +102,8 @@ const ThreadListItemGroups: FC = () => {
     if (!allIndices.some((i) => dates[i])) return null;
 
     const now = new Date();
-    const startOfToday = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-    ).getTime();
-    const time = (index: number) =>
-      dates[index]?.getTime() ?? Number.MAX_SAFE_INTEGER;
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const time = (index: number) => dates[index]?.getTime() ?? Number.MAX_SAFE_INTEGER;
     const sorted = [...allIndices].sort((a, b) => time(b) - time(a));
 
     const result: ThreadListGroup[] = [];
@@ -143,10 +122,7 @@ const ThreadListItemGroups: FC = () => {
   if (!groups) {
     return threadIds.map((id, index) => (
       <Fragment key={id}>
-        <ThreadListPrimitive.ItemByIndex
-          index={index}
-          components={{ ThreadListItem }}
-        />
+        <ThreadListPrimitive.ItemByIndex index={index} components={{ ThreadListItem }} />
       </Fragment>
     ));
   }
@@ -191,10 +167,7 @@ export const ThreadListNew = forwardRef<
     >
       {children ?? (
         <>
-          <PlusIcon
-            data-slot="aui_thread-list-new-icon"
-            className="size-5 text-primary shrink-0"
-          />
+          <PlusIcon data-slot="aui_thread-list-new-icon" className="size-5 text-primary shrink-0" />
           <span
             data-slot="aui_thread-list-new-label"
             className={cn("whitespace-nowrap", labelClassName)}
@@ -220,10 +193,7 @@ const ThreadListSkeleton: FC = () => {
           data-slot="aui_thread-list-skeleton-wrapper"
           className="flex items-center px-2.5 h-8"
         >
-          <Skeleton
-            data-slot="aui_thread-list-skeleton"
-            className="w-full h-3.5"
-          />
+          <Skeleton data-slot="aui_thread-list-skeleton" className="w-full h-3.5" />
         </div>
       ))}
     </div>

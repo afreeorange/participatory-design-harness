@@ -12,8 +12,7 @@ const hash = (n: number, salt: number, range: number) => {
   return ((h ^ (h >>> 16)) % range) / 1000;
 };
 
-const glyph = (dots: [number, number][]) =>
-  new Set(dots.map(([row, col]) => row * GRID + col));
+const glyph = (dots: [number, number][]) => new Set(dots.map(([row, col]) => row * GRID + col));
 
 const CHECK = glyph([
   [1, 4],
@@ -120,8 +119,7 @@ const STATES = {
   },
   syncing: {
     blink: (_i, row, col) => {
-      const turn =
-        (Math.atan2(row - CENTER, col - CENTER) + Math.PI) / (2 * Math.PI);
+      const turn = (Math.atan2(row - CENTER, col - CENTER) + Math.PI) / (2 * Math.PI);
       return { duration: 1.3, delay: -turn * 1.3, lo: 0.2 };
     },
   },
@@ -207,12 +205,7 @@ const DOT_MATRIX_CSS =
  * <DotMatrix state={isRunning ? "loading" : "success"} />
  * ```
  */
-function DotMatrix({
-  className,
-  state = "loading",
-  label,
-  ...props
-}: DotMatrixProps) {
+function DotMatrix({ className, state = "loading", label, ...props }: DotMatrixProps) {
   const config: StateConfig = STATES[state];
   return (
     <span
@@ -227,12 +220,7 @@ function DotMatrix({
       <style href="aui-dot-matrix" precedence="low">
         {DOT_MATRIX_CSS}
       </style>
-      <svg
-        aria-hidden
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        className="size-full"
-      >
+      <svg aria-hidden viewBox="0 0 20 20" fill="currentColor" className="size-full">
         {DOT_INDEXES.map((i) => {
           const row = Math.floor(i / GRID);
           const col = i % GRID;

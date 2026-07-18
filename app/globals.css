@@ -11,18 +11,12 @@
       height: 0;
     }
     to {
-      height: var(
-        --radix-collapsible-content-height,
-        var(--collapsible-panel-height, auto)
-      );
+      height: var(--radix-collapsible-content-height, var(--collapsible-panel-height, auto));
     }
   }
   @keyframes collapsible-up {
     from {
-      height: var(
-        --radix-collapsible-content-height,
-        var(--collapsible-panel-height, auto)
-      );
+      height: var(--radix-collapsible-content-height, var(--collapsible-panel-height, auto));
     }
     to {
       height: 0;
@@ -35,8 +29,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans:
-    "84204FFF-79F6-4EF4-94F5-6CD6CA6CA761", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "84204FFF-79F6-4EF4-94F5-6CD6CA6CA761", ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-background: var(--sidebar-background);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -70,8 +63,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --animate-shimmer: shimmer-sweep var(--shimmer-duration, 1000ms) linear
-    infinite both;
+  --animate-shimmer: shimmer-sweep var(--shimmer-duration, 1000ms) linear infinite both;
   @keyframes shimmer-sweep {
     from {
       background-position: 150% 0;

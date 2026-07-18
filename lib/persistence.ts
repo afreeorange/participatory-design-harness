@@ -153,9 +153,7 @@ function extractText(content: unknown): string {
       : [];
   return parts
     .map((p) =>
-      typeof p === "object" && p && "text" in p
-        ? String((p as { text: unknown }).text)
-        : "",
+      typeof p === "object" && p && "text" in p ? String((p as { text: unknown }).text) : "",
     )
     .join(" ");
 }
@@ -168,9 +166,7 @@ function snippet(text: string, q: string): string | null {
   const start = Math.max(0, idx - SNIPPET_RADIUS);
   const end = Math.min(text.length, idx + q.length + SNIPPET_RADIUS);
   return (
-    (start > 0 ? "..." : "") +
-    text.slice(start, end).trim() +
-    (end < text.length ? "..." : "")
+    (start > 0 ? "..." : "") + text.slice(start, end).trim() + (end < text.length ? "..." : "")
   );
 }
 
@@ -180,9 +176,7 @@ export type ThreadSearchResult = {
   preview: string | null;
 };
 
-export async function searchThreads(
-  query: string,
-): Promise<ThreadSearchResult[]> {
+export async function searchThreads(query: string): Promise<ThreadSearchResult[]> {
   const store = await readStore();
   const q = query.toLowerCase();
   const snippets = new Map<string, string | null>();
@@ -201,10 +195,7 @@ export async function searchThreads(
 
   return store.threads
     .filter((t) => t.status === "regular" && snippets.has(t.id))
-    .sort(
-      (a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-    )
+    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
     .map((t) => ({ id: t.id, title: t.title, preview: snippets.get(t.id) ?? null }));
 }
 
