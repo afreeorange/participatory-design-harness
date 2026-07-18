@@ -36,6 +36,7 @@ import {
   SuggestionPrimitive,
   ThreadPrimitive,
   type ToolCallMessagePartComponent,
+  useAui,
   useAuiState,
 } from "@assistant-ui/react";
 import {
@@ -55,11 +56,26 @@ import {
 import {
   createContext,
   useContext,
+  useEffect,
+  useRef,
+  useState,
   type ComponentType,
   type FC,
   type PropsWithChildren,
 } from "react";
-import { ModelSelector } from "@/components/assistant-ui/model-selector";
+// import { ModelSelector } from "@/components/assistant-ui/model-selector";
+import {
+  Select,
+  SelectRoot,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectGroup,
+  SelectLabel,
+  SelectValue,
+  SelectSeparator,
+} from "@/components/ui/select";
+import { EVENT_TIMESPANS } from "@/app/constants";
 
 export type ThreadGroupPart = MessagePrimitive.GroupedParts.GroupPart;
 
@@ -74,8 +90,12 @@ export type ThreadComponents = {
   AssistantMessage?: ComponentType | undefined;
   Welcome?: ComponentType | undefined;
   ToolFallback?: ToolCallMessagePartComponent | undefined;
-  ToolGroup?: ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>> | undefined;
-  ReasoningGroup?: ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>> | undefined;
+  ToolGroup?:
+    | ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>>
+    | undefined;
+  ReasoningGroup?:
+    | ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>>
+    | undefined;
 };
 
 export type ThreadProps = {
@@ -84,12 +104,14 @@ export type ThreadProps = {
 
 const EMPTY_COMPONENTS: ThreadComponents = {};
 
-const ThreadComponentsContext = createContext<ThreadComponents>(EMPTY_COMPONENTS);
+const ThreadComponentsContext =
+  createContext<ThreadComponents>(EMPTY_COMPONENTS);
 
 // Startup exposes a loading placeholder thread; treat it as a new chat so
 // the composer mounts centered. Loads after startup keep the docked layout.
 const isNewChatView = (s: AssistantState) =>
-  s.thread.messages.length === 0 && (!s.thread.isLoading || s.threads.isLoading);
+  s.thread.messages.length === 0 &&
+  (!s.thread.isLoading || s.threads.isLoading);
 
 export const Thread: FC<ThreadProps> = ({ components = EMPTY_COMPONENTS }) => {
   const isEmpty = useAuiState(isNewChatView);
@@ -130,14 +152,20 @@ const ThreadRoot: FC<{ isEmpty: boolean }> = ({ isEmpty }) => {
             <Welcome />
           </AuiIf>
 
-          <div data-slot="aui_message-group" className="empty:hidden flex flex-col gap-y-6 mb-14">
-            <ThreadPrimitive.Messages>{() => <ThreadMessage />}</ThreadPrimitive.Messages>
+          <div
+            data-slot="aui_message-group"
+            className="empty:hidden flex flex-col gap-y-6 mb-14"
+          >
+            <ThreadPrimitive.Messages>
+              {() => <ThreadMessage />}
+            </ThreadPrimitive.Messages>
           </div>
 
           <ThreadPrimitive.ViewportFooter
             className={cn(
               "flex flex-col gap-4 bg-background pb-4 md:pb-6 overflow-visible aui-thread-viewport-footer",
-              !isEmpty && "sticky bottom-0 mt-auto rounded-t-(--composer-radius)",
+              !isEmpty &&
+                "sticky bottom-0 mt-auto rounded-t-(--composer-radius)",
             )}
           >
             <ThreadScrollToBottom />
@@ -197,7 +225,9 @@ const ThreadWelcome: FC = () => {
 const ThreadSuggestions: FC = () => {
   return (
     <div className="flex flex-wrap justify-center items-center gap-2 px-4 w-full aui-thread-welcome-suggestions">
-      <ThreadPrimitive.Suggestions>{() => <ThreadSuggestionItem />}</ThreadPrimitive.Suggestions>
+      <ThreadPrimitive.Suggestions>
+        {() => <ThreadSuggestionItem />}
+      </ThreadPrimitive.Suggestions>
     </div>
   );
 };
@@ -247,93 +277,208 @@ const Composer: FC = () => {
   );
 };
 
+const DataTimespanSelector: FC = () => {
+  const hasMessages = useAuiState((s) => s.thread.messages.length > 0);
+  const firstMsgId = useAuiState((s) => s.thread.messages[0]?.id);
+  const [timespan, setTimespan] = useState<string>(EVENT_TIMESPANS[1].id);
+  const [available, setAvailable] = useState<string[]>([]);
+  const [locked, setLocked] = useState(false);
+  const timespanRef = useRef(timespan);
+  const aui = useAui();
+
+  timespanRef.current = timespan;
+
+  // Fetch available timespans once
+  useEffect(() => {
+    fetch("/api/data-options")
+      .then((r) => r.json())
+      .then(setAvailable);
+  }, []);
+
+  // Register timespan with modelContext so it flows to the backend
+  useEffect(() => {
+    return aui.modelContext().register({
+      getModelContext: () => ({
+        config: { dataTimespan: timespan } as Record<string, string>,
+      }),
+    });
+  }, [aui, timespan]);
+
+  // Reset when switching to a new empty thread
+  const prevFirstMsgIdRef = useRef(firstMsgId);
+  useEffect(() => {
+    const prev = prevFirstMsgIdRef.current;
+    prevFirstMsgIdRef.current = firstMsgId;
+    // Only reset when going from a thread with messages to one without
+    // (i.e. switched to new empty thread), not when the first message appears
+    if (prev !== undefined && firstMsgId === undefined) {
+      setLocked(false);
+      setTimespan(EVENT_TIMESPANS[1].id);
+    }
+  }, [firstMsgId]);
+
+  // When thread has messages: load stored timespan or save current one
+  useEffect(() => {
+    if (!hasMessages || locked) return;
+    setLocked(true);
+
+    try {
+      const remoteId = aui.threadListItem()?.getState()?.remoteId;
+
+      if (!remoteId) return;
+
+      fetch(`/api/threads/${remoteId}`)
+        .then((r) => r.json())
+        .then((t) => {
+          if (t.dataTimespan) {
+            setTimespan(t.dataTimespan);
+          } else {
+            fetch(`/api/threads/${remoteId}`, {
+              method: "PATCH",
+              body: JSON.stringify({ dataTimespan: timespanRef.current }),
+            });
+          }
+        });
+    } catch {
+      // threadListItem not available yet
+    }
+  }, [hasMessages, locked, aui]);
+
+  const label =
+    EVENT_TIMESPANS.find((t) => t.id === timespan)?.label ?? timespan;
+
+  if (locked) {
+    return (
+      <span className="opacity-50 px-1 text-muted-foreground text-xs">
+        Using <strong>{label}</strong> events
+      </span>
+    );
+  }
+
+  const items = EVENT_TIMESPANS.filter((t) => available.includes(t.id)).map(
+    (t) => ({
+      value: t.id,
+      label: t.label,
+      // disabled: available.length > 0 && !available.includes(t.id),
+    }),
+  );
+
+  console.log(items);
+
+  return (
+    <div className="flex items-center px-1 text-muted-foreground text-xs">
+      <span>Use</span>
+      <SelectRoot
+        value={timespan}
+        onValueChange={(v) => v !== null && setTimespan(v)}
+        items={items}
+      >
+        <SelectTrigger variant="ghost" size="sm" className={"font-bold"}>
+          <SelectValue placeholder="Select timespan" />
+        </SelectTrigger>
+        <SelectContent>
+          {items.map((t) => (
+            <SelectItem key={t.value} value={t.value}>
+              {t.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </SelectRoot>
+      <span>events</span>
+    </div>
+  );
+};
+
 const ComposerAction: FC = () => {
   return (
-    <div className="relative flex justify-between items-center aui-composer-action-wrapper">
-      <div className="flex items-center gap-1.5">
-        <ComposerAddAttachment />
-        <ModelSelector
-          models={[
-            { id: "gpt-4o-mini", name: "GPT-4o mini", description: "Fast & affordable" },
-            { id: "gpt-4o", name: "GPT-4o", description: "Great for most tasks" },
-            { id: "gpt-4.1-mini", name: "GPT-4.1 mini", description: "Fast, smart, affordable" },
-            { id: "gpt-4.1", name: "GPT-4.1", description: "Flagship model" },
-            { id: "o4-mini", name: "o4-mini", description: "Fast reasoning", efforts: true },
-          ]}
-          defaultValue="gpt-4o-mini"
-          variant="ghost"
-          size="sm"
-        />
-      </div>
-      <div className="flex items-center gap-1.5">
-        <AuiIf condition={(s) => s.thread.capabilities.dictation}>
-          <AuiIf condition={(s) => s.composer.dictation == null}>
-            <ComposerPrimitive.Dictate
+    <div className="flex flex-col gap-1.5 aui-composer-action-wrapper">
+      <div className="relative flex justify-between items-center">
+        <div className="flex items-center gap-1.5">
+          <ComposerAddAttachment />
+          <DataTimespanSelector />
+          {/* <ModelSelector
+            models={[
+              { id: "gpt-4o-mini", name: "GPT-4o mini", description: "Fast & affordable" },
+              { id: "gpt-4o", name: "GPT-4o", description: "Great for most tasks" },
+              { id: "gpt-4.1-mini", name: "GPT-4.1 mini", description: "Fast, smart, affordable" },
+              { id: "gpt-4.1", name: "GPT-4.1", description: "Flagship model" },
+              { id: "o4-mini", name: "o4-mini", description: "Fast reasoning", efforts: true },
+            ]}
+            defaultValue="gpt-4o-mini"
+            variant="ghost"
+            size="sm"
+          /> */}
+        </div>
+        <div className="flex items-center gap-1.5">
+          <AuiIf condition={(s) => s.thread.capabilities.dictation}>
+            <AuiIf condition={(s) => s.composer.dictation == null}>
+              <ComposerPrimitive.Dictate
+                render={
+                  <TooltipIconButton
+                    tooltip="Voice input"
+                    side="bottom"
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full size-7 aui-composer-dictate"
+                    aria-label="Start voice input"
+                  />
+                }
+              >
+                <MicIcon className="size-4 aui-composer-dictate-icon" />
+              </ComposerPrimitive.Dictate>
+            </AuiIf>
+            <AuiIf condition={(s) => s.composer.dictation != null}>
+              <ComposerPrimitive.StopDictation
+                render={
+                  <TooltipIconButton
+                    tooltip="Stop dictation"
+                    side="bottom"
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full size-7 text-destructive aui-composer-stop-dictation"
+                    aria-label="Stop voice input"
+                  />
+                }
+              >
+                <SquareIcon className="fill-current size-3.5 animate-pulse aui-composer-stop-dictation-icon" />
+              </ComposerPrimitive.StopDictation>
+            </AuiIf>
+          </AuiIf>
+          <AuiIf condition={(s) => !s.thread.isRunning}>
+            <ComposerPrimitive.Send
               render={
                 <TooltipIconButton
-                  tooltip="Voice input"
+                  tooltip="Send message"
                   side="bottom"
                   type="button"
-                  variant="ghost"
+                  variant="default"
                   size="icon"
-                  className="rounded-full size-7 aui-composer-dictate"
-                  aria-label="Start voice input"
+                  className="rounded-full size-7 aui-composer-send"
+                  aria-label="Send message"
                 />
               }
             >
-              <MicIcon className="size-4 aui-composer-dictate-icon" />
-            </ComposerPrimitive.Dictate>
+              <ArrowUpIcon className="size-4.5 aui-composer-send-icon" />
+            </ComposerPrimitive.Send>
           </AuiIf>
-          <AuiIf condition={(s) => s.composer.dictation != null}>
-            <ComposerPrimitive.StopDictation
+          <AuiIf condition={(s) => s.thread.isRunning}>
+            <ComposerPrimitive.Cancel
               render={
-                <TooltipIconButton
-                  tooltip="Stop dictation"
-                  side="bottom"
+                <Button
                   type="button"
-                  variant="ghost"
+                  variant="default"
                   size="icon"
-                  className="rounded-full size-7 text-destructive aui-composer-stop-dictation"
-                  aria-label="Stop voice input"
+                  className="rounded-full size-7 aui-composer-cancel"
+                  aria-label="Stop generating"
                 />
               }
             >
-              <SquareIcon className="fill-current size-3.5 animate-pulse aui-composer-stop-dictation-icon" />
-            </ComposerPrimitive.StopDictation>
+              <SquareIcon className="fill-current size-3.5 aui-composer-cancel-icon" />
+            </ComposerPrimitive.Cancel>
           </AuiIf>
-        </AuiIf>
-        <AuiIf condition={(s) => !s.thread.isRunning}>
-          <ComposerPrimitive.Send
-            render={
-              <TooltipIconButton
-                tooltip="Send message"
-                side="bottom"
-                type="button"
-                variant="default"
-                size="icon"
-                className="rounded-full size-7 aui-composer-send"
-                aria-label="Send message"
-              />
-            }
-          >
-            <ArrowUpIcon className="size-4.5 aui-composer-send-icon" />
-          </ComposerPrimitive.Send>
-        </AuiIf>
-        <AuiIf condition={(s) => s.thread.isRunning}>
-          <ComposerPrimitive.Cancel
-            render={
-              <Button
-                type="button"
-                variant="default"
-                size="icon"
-                className="rounded-full size-7 aui-composer-cancel"
-                aria-label="Stop generating"
-              />
-            }
-          >
-            <SquareIcon className="fill-current size-3.5 aui-composer-cancel-icon" />
-          </ComposerPrimitive.Cancel>
-        </AuiIf>
+        </div>
       </div>
     </div>
   );
@@ -396,7 +541,9 @@ const AssistantMessage: FC = () => {
                 );
               case "group-reasoning": {
                 if (ReasoningGroup) {
-                  return <ReasoningGroup group={part}>{children}</ReasoningGroup>;
+                  return (
+                    <ReasoningGroup group={part}>{children}</ReasoningGroup>
+                  );
                 }
                 const running = part.status.type === "running";
                 return (
@@ -460,12 +607,19 @@ const AssistantActionBar: FC = () => {
           <CopyIcon className="animate-in duration-150 zoom-in-75 fade-in" />
         </AuiIf>
       </ActionBarPrimitive.Copy>
-      <ActionBarPrimitive.Reload render={<TooltipIconButton tooltip="Refresh" />}>
+      {/* <ActionBarPrimitive.Reload
+        render={<TooltipIconButton tooltip="Refresh" />}
+      >
         <RefreshCwIcon />
-      </ActionBarPrimitive.Reload>
-      <ActionBarMorePrimitive.Root>
+      </ActionBarPrimitive.Reload> */}
+      {/* <ActionBarMorePrimitive.Root>
         <ActionBarMorePrimitive.Trigger
-          render={<TooltipIconButton tooltip="More" className="data-[state=open]:bg-accent" />}
+          render={
+            <TooltipIconButton
+              tooltip="More"
+              className="data-[state=open]:bg-accent"
+            />
+          }
         >
           <MoreHorizontalIcon />
         </ActionBarMorePrimitive.Trigger>
@@ -484,7 +638,7 @@ const AssistantActionBar: FC = () => {
             Export as Markdown
           </ActionBarPrimitive.ExportMarkdown>
         </ActionBarMorePrimitive.Content>
-      </ActionBarMorePrimitive.Root>
+      </ActionBarMorePrimitive.Root> */}
     </ActionBarPrimitive.Root>
   );
 };
@@ -523,7 +677,9 @@ const UserActionBar: FC = () => {
       className="flex flex-col items-end aui-user-action-bar-root"
     >
       <ActionBarPrimitive.Edit
-        render={<TooltipIconButton tooltip="Edit" className="aui-user-action-edit" />}
+        render={
+          <TooltipIconButton tooltip="Edit" className="aui-user-action-edit" />
+        }
       >
         <PencilIcon />
       </ActionBarPrimitive.Edit>
@@ -544,11 +700,19 @@ const EditComposer: FC = () => {
         />
         <div className="flex items-center self-end gap-1.5 mx-2.5 mb-2.5 aui-edit-composer-footer">
           <ComposerPrimitive.Cancel
-            render={<Button variant="ghost" size="sm" className="px-3.5 rounded-full h-8" />}
+            render={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="px-3.5 rounded-full h-8"
+              />
+            }
           >
             Cancel
           </ComposerPrimitive.Cancel>
-          <ComposerPrimitive.Send render={<Button size="sm" className="px-3.5 rounded-full h-8" />}>
+          <ComposerPrimitive.Send
+            render={<Button size="sm" className="px-3.5 rounded-full h-8" />}
+          >
             Update
           </ComposerPrimitive.Send>
         </div>
@@ -557,7 +721,10 @@ const EditComposer: FC = () => {
   );
 };
 
-const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({ className, ...rest }) => {
+const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
+  className,
+  ...rest
+}) => {
   return (
     <BranchPickerPrimitive.Root
       hideWhenSingleBranch
@@ -567,7 +734,9 @@ const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({ className, ...rest
       )}
       {...rest}
     >
-      <BranchPickerPrimitive.Previous render={<TooltipIconButton tooltip="Previous" />}>
+      <BranchPickerPrimitive.Previous
+        render={<TooltipIconButton tooltip="Previous" />}
+      >
         <ChevronLeftIcon />
       </BranchPickerPrimitive.Previous>
       <span className="font-medium aui-branch-picker-state">

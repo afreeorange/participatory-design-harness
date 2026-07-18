@@ -21,6 +21,35 @@ npx assistant-ui add
 - `app/api/chat/route.ts` - Chat API endpoint
 - `components/assistant-ui/thread.tsx` - Chat thread component
 
+### Participant Data
+
+The naming schema needs to be like this:
+
+- `{PARTICIPANT_ID}_data_all_available.csv`
+- `{PARTICIPANT_ID}_data_past_1_month.csv`
+- `{PARTICIPANT_ID}_data_past_3_months.csv`
+- `{PARTICIPANT_ID}_data_past_6_months.csv`
+- `{PARTICIPANT_ID}_data_past_1_year.csv`
+- `{PARTICIPANT_ID}_data_past_2_years.csv`
+
+There's no scricture that all of these _must_ be present. The dropdown under the greeting in a new thread will reflect the presence/absence of any or all of these.
+
+### Default LLM
+
+See `app/constants.ts` for all the current OpenAI models. Generated using this handy-dandy script:
+
+```typescript
+import OpenAI from "openai";
+
+(async () => {
+  (await new OpenAI({ apiKey: process.env.OPENAI_API_KEY }).models.list()).data.map((m) =>
+    console.log(m.id),
+  );
+})();
+```
+
+We're using ChatGPT 5.2 since that's the one anointed by Columbia.
+
 ## Authors
 
 - Adrienne Pichon
@@ -34,157 +63,23 @@ MIT
 
 ## Other Notes
 
-Here's a list of all OpenAI model IDs. We're using ChatGPT 5.2 since that's the one anointed by Columbia.
 
-```
-babbage-002
-chat-latest
-chatgpt-image-latest
-davinci-002
-gpt-3.5-turbo
-gpt-3.5-turbo-0125
-gpt-3.5-turbo-1106
-gpt-3.5-turbo-16k
-gpt-3.5-turbo-instruct
-gpt-3.5-turbo-instruct-0914
-gpt-4
-gpt-4-0613
-gpt-4-turbo
-gpt-4-turbo-2024-04-09
-gpt-4.1
-gpt-4.1-2025-04-14
-gpt-4.1-mini
-gpt-4.1-mini-2025-04-14
-gpt-4.1-nano
-gpt-4.1-nano-2025-04-14
-gpt-4o
-gpt-4o-2024-05-13
-gpt-4o-2024-08-06
-gpt-4o-2024-11-20
-gpt-4o-mini
-gpt-4o-mini-2024-07-18
-gpt-4o-mini-search-preview
-gpt-4o-mini-search-preview-2025-03-11
-gpt-4o-mini-transcribe
-gpt-4o-mini-transcribe-2025-03-20
-gpt-4o-mini-transcribe-2025-12-15
-gpt-4o-mini-tts
-gpt-4o-mini-tts-2025-03-20
-gpt-4o-mini-tts-2025-12-15
-gpt-4o-search-preview
-gpt-4o-search-preview-2025-03-11
-gpt-4o-transcribe
-gpt-4o-transcribe-diarize
-gpt-5
-gpt-5-2025-08-07
-gpt-5-chat-latest
-gpt-5-codex
-gpt-5-mini
-gpt-5-mini-2025-08-07
-gpt-5-nano
-gpt-5-nano-2025-08-07
-gpt-5-pro
-gpt-5-pro-2025-10-06
-gpt-5-search-api
-gpt-5-search-api-2025-10-14
-gpt-5.1
-gpt-5.1-2025-11-13
-gpt-5.1-chat-latest
-gpt-5.1-codex
-gpt-5.1-codex-max
-gpt-5.1-codex-mini
-gpt-5.2
-gpt-5.2-2025-12-11
-gpt-5.2-chat-latest
-gpt-5.2-codex
-gpt-5.2-pro
-gpt-5.2-pro-2025-12-11
-gpt-5.3-chat-latest
-gpt-5.3-codex
-gpt-5.4
-gpt-5.4-2026-03-05
-gpt-5.4-mini
-gpt-5.4-mini-2026-03-17
-gpt-5.4-nano
-gpt-5.4-nano-2026-03-17
-gpt-5.4-pro
-gpt-5.4-pro-2026-03-05
-gpt-5.5
-gpt-5.5-2026-04-23
-gpt-5.5-pro
-gpt-5.5-pro-2026-04-23
-gpt-5.6-luna
-gpt-5.6-sol
-gpt-5.6-terra
-gpt-audio
-gpt-audio-1.5
-gpt-audio-2025-08-28
-gpt-audio-mini
-gpt-audio-mini-2025-10-06
-gpt-audio-mini-2025-12-15
-gpt-image-1
-gpt-image-1-mini
-gpt-image-1.5
-gpt-image-2
-gpt-image-2-2026-04-21
-gpt-realtime
-gpt-realtime-1.5
-gpt-realtime-2
-gpt-realtime-2.1
-gpt-realtime-2.1-mini
-gpt-realtime-2025-08-28
-gpt-realtime-mini
-gpt-realtime-mini-2025-10-06
-gpt-realtime-mini-2025-12-15
-gpt-realtime-translate
-gpt-realtime-whisper
-o1
-o1-2024-12-17
-o1-pro
-o1-pro-2025-03-19
-o3
-o3-2025-04-16
-o3-mini
-o3-mini-2025-01-31
-o4-mini
-o4-mini-2025-04-16
-omni-moderation-2024-09-26
-omni-moderation-latest
-sora-2
-sora-2-pro
-text-embedding-3-large
-text-embedding-3-small
-text-embedding-ada-002
-tts-1
-tts-1-1106
-tts-1-hd
-tts-1-hd-1106
-whisper-1
-```
-
-Generated using this handy-dandy script:
-
-```typescript
-import OpenAI from "openai";
-
-(async () => {
-  (await new OpenAI({ apiKey: process.env.OPENAI_API_KEY }).models.list()).data.map((m) =>
-    console.log(m.id),
-  );
-})();
-```
 
 ---
 
-## TODO
+## TODO before Sessions
 
 - [ ] Allow participants to pick the timespan
 - [ ] Title above chats
-- [ ] Model picker (?)
+- [ ] Model picker -- fix to ChatGippity 5.2
 - [ ] Collapsible indicator
+- [ ] Mini search as modal
 - [ ] Quotes around chat summaries?
 - [ ] Try with Lab key and lab data
 - [ ] Remove edit button
 - [ ] Remove loop button
 - [ ] Remove markdown button
 - [-] Remove copy button
+- [ ] Fix colors?
+- [ ] Vercel for demo?
+- [ ] Graceful/human error handling in UI?

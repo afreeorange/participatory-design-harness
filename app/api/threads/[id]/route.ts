@@ -12,6 +12,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   const patch = (await req.json()) as {
     title?: string;
     status?: "regular" | "archived";
+    dataTimespan?: string;
   };
   await updateThread(id, patch);
   return new Response(null, { status: 204 });

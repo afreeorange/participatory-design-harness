@@ -24,7 +24,7 @@ export function ThreadListSidebar({ ...props }: React.ComponentProps<typeof Side
                 </div>
                 <div className="flex flex-col gap-0.5 me-6 leading-none aui-sidebar-header-heading">
                   <span className="font-semibold aui-sidebar-header-title">
-                    Hello Co-Researcher!
+                    Phendo
                   </span>
                 </div>
               </SidebarMenuButton>

@@ -7,6 +7,7 @@ export type ThreadRecord = {
   id: string;
   title: string | null;
   status: "regular" | "archived";
+  dataTimespan?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -88,13 +89,14 @@ export async function createThread(id: string): Promise<ThreadRecord> {
 
 export async function updateThread(
   id: string,
-  patch: { title?: string; status?: "regular" | "archived" },
+  patch: { title?: string; status?: "regular" | "archived"; dataTimespan?: string },
 ): Promise<void> {
   const store = await readStore();
   const thread = store.threads.find((t) => t.id === id);
   if (!thread) return;
   if (patch.title !== undefined) thread.title = patch.title;
   if (patch.status !== undefined) thread.status = patch.status;
+  if (patch.dataTimespan !== undefined) thread.dataTimespan = patch.dataTimespan;
   thread.updatedAt = new Date().toISOString();
   await writeStore(store);
 }
@@ -112,7 +114,10 @@ export async function listMessages(threadId: string): Promise<MessageRecord[]> {
   const store = await readStore();
   return store.messages
     .filter((m) => m.threadId === threadId)
-    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
 }
 
 export async function appendMessage(
@@ -146,7 +151,34 @@ export async function loadSystemPrompt(): Promise<string> {
   return fs.readFile(loc, "utf-8");
 }
 
-export async function loadPatientData(): Promise<string> {
-  const loc = getEnv("PATIENT_DATA_LOCATION");
-  return fs.readFile(loc, "utf-8");
+const ALL_TIMESPANS = [
+  "all_available",
+  "past_1_month",
+  "past_3_months",
+  "past_6_months",
+  "past_1_year",
+  "past_2_years",
+] as const;
+
+export async function listAvailableTimespans(): Promise<string[]> {
+  const dir = getEnv("PATIENT_DATA_LOCATION");
+  const pid = getEnv("PATIENT_ID");
+  const available: string[] = [];
+  for (const ts of ALL_TIMESPANS) {
+    try {
+      await fs.access(path.join(dir, `${pid}_data_${ts}.csv`));
+      available.push(ts);
+    } catch {
+      // file not found
+    }
+  }
+  return available;
+}
+
+export async function loadPatientDataByTimespan(
+  timespan: string,
+): Promise<string> {
+  const dir = getEnv("PATIENT_DATA_LOCATION");
+  const pid = getEnv("PATIENT_ID");
+  return fs.readFile(path.join(dir, `${pid}_data_${timespan}.csv`), "utf-8");
 }

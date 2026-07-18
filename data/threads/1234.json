@@ -1,31 +1,63 @@
 {
   "threads": [
     {
-      "id": "cmQizRX3XegCmU1K",
-      "title": "Caveman Chat Begins",
+      "id": "8Bur4LRTIAEdDGd5",
+      "title": "Testing Communication Vibes",
       "status": "regular",
-      "createdAt": "2026-07-17T18:10:07.640Z",
-      "updatedAt": "2026-07-17T18:10:16.573Z"
+      "createdAt": "2026-07-18T13:50:27.052Z",
+      "updatedAt": "2026-07-18T13:54:10.683Z",
+      "dataTimespan": "past_3_months"
     },
     {
-      "id": "HlbeLuPmwe7IdnhB",
-      "title": "\"Emotions About Tables\"",
+      "id": "6cI3YB6pGnjIMehv",
+      "title": "Cow Conversation: Moo Moo Dialogues",
       "status": "regular",
-      "createdAt": "2026-07-17T18:10:40.204Z",
-      "updatedAt": "2026-07-17T18:13:02.813Z"
+      "createdAt": "2026-07-18T14:05:09.135Z",
+      "updatedAt": "2026-07-18T14:08:17.797Z",
+      "dataTimespan": "past_3_months"
     },
     {
-      "id": "YIVRODeEwpVw2bUw",
-      "title": "\"Emotions and Tables\"",
+      "id": "nK28bU4du2LOHeL6",
+      "title": "CSV Analysis Request Options",
       "status": "regular",
-      "createdAt": "2026-07-17T18:16:12.118Z",
-      "updatedAt": "2026-07-17T18:16:14.963Z"
+      "createdAt": "2026-07-18T14:10:43.606Z",
+      "updatedAt": "2026-07-18T14:11:14.635Z",
+      "dataTimespan": "past_3_months"
+    },
+    {
+      "id": "FwXp5gnJIEAfNCVz",
+      "title": "Data Table Analysis Request",
+      "status": "regular",
+      "createdAt": "2026-07-18T14:11:29.894Z",
+      "updatedAt": "2026-07-18T14:11:52.270Z",
+      "dataTimespan": "past_3_months"
+    },
+    {
+      "id": "77uv8SvAkicmsL1S",
+      "title": "Data Table Analysis Request",
+      "status": "regular",
+      "createdAt": "2026-07-18T14:47:55.880Z",
+      "updatedAt": "2026-07-18T14:47:58.903Z"
+    },
+    {
+      "id": "cF93MwMK5sUCN0ic",
+      "title": "\"Test Conversation Dynamics\"",
+      "status": "regular",
+      "createdAt": "2026-07-18T14:48:30.595Z",
+      "updatedAt": "2026-07-18T14:48:32.885Z"
+    },
+    {
+      "id": "pa5tupTB5cwZb6lZ",
+      "title": "\"Testing Communication Protocols\"",
+      "status": "regular",
+      "createdAt": "2026-07-18T14:50:27.812Z",
+      "updatedAt": "2026-07-18T14:50:29.804Z"
     }
   ],
   "messages": [
     {
-      "id": "D46OEnO4oADa32Yx",
-      "threadId": "cmQizRX3XegCmU1K",
+      "id": "QWxrm4nr6Lr92Ytt",
+      "threadId": "8Bur4LRTIAEdDGd5",
       "parentId": null,
       "format": "ai-sdk/v6",
       "content": {
@@ -36,16 +68,16 @@
         "parts": [
           {
             "type": "text",
-            "text": "Hello!"
+            "text": "TEst"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:10:09.481Z"
+      "createdAt": "2026-07-18T13:50:28.976Z"
     },
     {
-      "id": "qA0vtIOZiiy1G3g2",
-      "threadId": "cmQizRX3XegCmU1K",
-      "parentId": "D46OEnO4oADa32Yx",
+      "id": "JqFxm39IQk725KSB",
+      "threadId": "8Bur4LRTIAEdDGd5",
+      "parentId": "QWxrm4nr6Lr92Ytt",
       "format": "ai-sdk/v6",
       "content": {
         "role": "assistant",
@@ -55,22 +87,22 @@
           },
           {
             "type": "text",
-            "text": "Hi! How can caveman help?",
+            "text": "Caveman ready! What you need?",
             "providerMetadata": {
               "openai": {
-                "itemId": "msg_0005a8473c8bdf4b006a5a7000b3348190885e270cd24b2d83"
+                "itemId": "msg_05b362f4bdb2e17a006a5b84a4a4a88195ad8e84eb829da0b8"
               }
             },
             "state": "done"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:10:09.498Z"
+      "createdAt": "2026-07-18T13:50:28.988Z"
     },
     {
-      "id": "tnd1jxr6jqhyOe7e",
-      "threadId": "cmQizRX3XegCmU1K",
-      "parentId": "qA0vtIOZiiy1G3g2",
+      "id": "RiK9YsEF48DKeu5q",
+      "threadId": "8Bur4LRTIAEdDGd5",
+      "parentId": "JqFxm39IQk725KSB",
       "format": "ai-sdk/v6",
       "content": {
         "role": "user",
@@ -80,16 +112,16 @@
         "parts": [
           {
             "type": "text",
-            "text": "Tell me a nice joke"
+            "text": "Tell nme a nice joke"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:10:16.560Z"
+      "createdAt": "2026-07-18T13:54:10.673Z"
     },
     {
-      "id": "pxopX29RYrh2pqaL",
-      "threadId": "cmQizRX3XegCmU1K",
-      "parentId": "tnd1jxr6jqhyOe7e",
+      "id": "XNcQnJL0bLauCVZL",
+      "threadId": "8Bur4LRTIAEdDGd5",
+      "parentId": "RiK9YsEF48DKeu5q",
       "format": "ai-sdk/v6",
       "content": {
         "role": "assistant",
@@ -99,21 +131,21 @@
           },
           {
             "type": "text",
-            "text": "Why dog sit on fire? \n\nBecause he want hot dog! Ha!",
+            "text": "Why chicken cross road?\n\nTo get to other side.",
             "providerMetadata": {
               "openai": {
-                "itemId": "msg_0005a8473c8bdf4b006a5a700812788190b6d46ebacd10c5f5"
+                "itemId": "msg_05b362f4bdb2e17a006a5b8581ffd08195ba29ce050c5b892c"
               }
             },
             "state": "done"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:10:16.573Z"
+      "createdAt": "2026-07-18T13:54:10.683Z"
     },
     {
-      "id": "PwPwekwg6hEXo2vx",
-      "threadId": "HlbeLuPmwe7IdnhB",
+      "id": "xb94ZgSbKYMnvOqU",
+      "threadId": "6cI3YB6pGnjIMehv",
       "parentId": null,
       "format": "ai-sdk/v6",
       "content": {
@@ -124,16 +156,16 @@
         "parts": [
           {
             "type": "text",
-            "text": "How do I feel about tables?"
+            "text": "Moo moo"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:10:41.150Z"
+      "createdAt": "2026-07-18T14:05:10.927Z"
     },
     {
-      "id": "C8DzUoF6CuYBmUsM",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "PwPwekwg6hEXo2vx",
+      "id": "T2BuNSYD1SFxZJ2K",
+      "threadId": "6cI3YB6pGnjIMehv",
+      "parentId": "xb94ZgSbKYMnvOqU",
       "format": "ai-sdk/v6",
       "content": {
         "role": "assistant",
@@ -143,178 +175,21 @@
           },
           {
             "type": "text",
-            "text": "You feel surprise. Medium strong.",
+            "text": "Moo. You cow. What you want?",
             "providerMetadata": {
               "openai": {
-                "itemId": "msg_0d29156255b7e01a006a5a7020e51081968dee2f7a108ee990"
+                "itemId": "msg_0c3d365a017463d9006a5b881669a08194945c0a60d687dda8"
               }
             },
             "state": "done"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:10:41.168Z"
+      "createdAt": "2026-07-18T14:05:10.937Z"
     },
     {
-      "id": "q3UgG4oI7i1F46Re",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "C8DzUoF6CuYBmUsM",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "user",
-        "metadata": {
-          "custom": {}
-        },
-        "parts": [
-          {
-            "type": "text",
-            "text": "Do I like bikes?"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:11:05.784Z"
-    },
-    {
-      "id": "U7OMyit23h9ImWR7",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "q3UgG4oI7i1F46Re",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "assistant",
-        "parts": [
-          {
-            "type": "step-start"
-          },
-          {
-            "type": "text",
-            "text": "Bike make you feel fear. High strong. Not like.",
-            "providerMetadata": {
-              "openai": {
-                "itemId": "msg_0d29156255b7e01a006a5a703982e48196bc39dbe58914bb24"
-              }
-            },
-            "state": "done"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:11:05.812Z"
-    },
-    {
-      "id": "ZZTH5G69bQ0BPMuc",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "q3UgG4oI7i1F46Re",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "assistant",
-        "parts": [
-          {
-            "type": "step-start"
-          },
-          {
-            "type": "text",
-            "text": "No. You feel fear. High strong.",
-            "providerMetadata": {
-              "openai": {
-                "itemId": "msg_0d29156255b7e01a006a5a7042fff08196b63d16da5d57765d"
-              }
-            },
-            "state": "done"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:11:15.342Z"
-    },
-    {
-      "id": "8EYUGJZHYVhWylNb",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "ZZTH5G69bQ0BPMuc",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "user",
-        "metadata": {
-          "custom": {}
-        },
-        "parts": [
-          {
-            "type": "text",
-            "text": "How do you think I'd feel about pizza ovens?"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:11:46.348Z"
-    },
-    {
-      "id": "0dmKyy9pWciyyp3B",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "8EYUGJZHYVhWylNb",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "assistant",
-        "parts": [
-          {
-            "type": "step-start"
-          },
-          {
-            "type": "text",
-            "text": "Hmm, no data. Guessing: maybe curiosity? Medium strong. ",
-            "providerMetadata": {
-              "openai": {
-                "itemId": "msg_0d29156255b7e01a006a5a706212448196860d936a4056bc36"
-              }
-            },
-            "state": "done"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:11:46.374Z"
-    },
-    {
-      "id": "gp3WLjjh5YgrfxP7",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "0dmKyy9pWciyyp3B",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "user",
-        "metadata": {
-          "custom": {}
-        },
-        "parts": [
-          {
-            "type": "text",
-            "text": "Can you still guess though?"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:13:02.801Z"
-    },
-    {
-      "id": "tye34QYmfCMFaiq3",
-      "threadId": "HlbeLuPmwe7IdnhB",
-      "parentId": "gp3WLjjh5YgrfxP7",
-      "format": "ai-sdk/v6",
-      "content": {
-        "role": "assistant",
-        "parts": [
-          {
-            "type": "step-start"
-          },
-          {
-            "type": "text",
-            "text": "Yes! I guess you feel excitement. Medium strong. ",
-            "providerMetadata": {
-              "openai": {
-                "itemId": "msg_0d29156255b7e01a006a5a70ae880081968dcf0ed3f586900d"
-              }
-            },
-            "state": "done"
-          }
-        ]
-      },
-      "createdAt": "2026-07-17T18:13:02.813Z"
-    },
-    {
-      "id": "BivR7igiTzCFXtIp",
-      "threadId": "YIVRODeEwpVw2bUw",
+      "id": "cWByjiyQgftAUDlC",
+      "threadId": "nK28bU4du2LOHeL6",
       "parentId": null,
       "format": "ai-sdk/v6",
       "content": {
@@ -325,16 +200,16 @@
         "parts": [
           {
             "type": "text",
-            "text": "Tell me how my body feels around tables"
+            "text": "TEst"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:16:13.966Z"
+      "createdAt": "2026-07-18T14:10:45.554Z"
     },
     {
-      "id": "ImDRL7esmGjncBOy",
-      "threadId": "YIVRODeEwpVw2bUw",
-      "parentId": "BivR7igiTzCFXtIp",
+      "id": "6ucnmP8BehZRDf4D",
+      "threadId": "nK28bU4du2LOHeL6",
+      "parentId": "cWByjiyQgftAUDlC",
       "format": "ai-sdk/v6",
       "content": {
         "role": "assistant",
@@ -344,17 +219,237 @@
           },
           {
             "type": "text",
-            "text": "Table make you feel surprise. Medium strength. Not strong, not weak. Curious about table.",
+            "text": "U say “TEst”. Me no know want. What you need from CSV?  \nPick: (1) summary (2) count by emotion (3) count by intensity (4) list high-intensity only (5) other.",
             "providerMetadata": {
               "openai": {
-                "itemId": "msg_08d4e75143b30c75006a5a716d10808196bd938b7367591736"
+                "itemId": "msg_0ba87ef73287fc79006a5b89647444819494b48be1de6e7a1b"
               }
             },
             "state": "done"
           }
         ]
       },
-      "createdAt": "2026-07-17T18:16:13.987Z"
+      "createdAt": "2026-07-18T14:10:45.579Z"
+    },
+    {
+      "id": "UFKfvWuLv5eH2rOS",
+      "threadId": "nK28bU4du2LOHeL6",
+      "parentId": "6ucnmP8BehZRDf4D",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Anotehr"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:11:14.624Z"
+    },
+    {
+      "id": "wuLkUGY3V09dED1v",
+      "threadId": "nK28bU4du2LOHeL6",
+      "parentId": "UFKfvWuLv5eH2rOS",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "You say “Anotehr”. Me still no know want. Tell task in few words.  \nExample: “count emotions” or “show high anxiety items”.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0ba87ef73287fc79006a5b8981bc74819497f69c53a309f66e"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:11:14.635Z"
+    },
+    {
+      "id": "jzKtQvsxRPLuJi1m",
+      "threadId": "FwXp5gnJIEAfNCVz",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "TEst"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:11:31.734Z"
+    },
+    {
+      "id": "PwDgVf65JHELX0nU",
+      "threadId": "FwXp5gnJIEAfNCVz",
+      "parentId": "jzKtQvsxRPLuJi1m",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "U test. Me see data table: object + feeling + strength.  \nYou want me do what with it? (summarize? count highs? find most fear?)",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_047fa6398a9c49f2006a5b89926d648193bd1d59992a735b36"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:11:31.747Z"
+    },
+    {
+      "id": "SWsqAzGAbTQUByMV",
+      "threadId": "77uv8SvAkicmsL1S",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "TEst"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:47:57.886Z"
+    },
+    {
+      "id": "SvUkf4rwxCJjXnPr",
+      "threadId": "77uv8SvAkicmsL1S",
+      "parentId": "SWsqAzGAbTQUByMV",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me see data table. You want me do what with it?  \nSay: summarize, find max emotion, count by emotion, or make chart.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_042e1e9d8b83670a006a5b921cfc7881979c9a3ea4916973f8"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:47:57.902Z"
+    },
+    {
+      "id": "ikCnwJd9VGEg1cvI",
+      "threadId": "cF93MwMK5sUCN0ic",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Test"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:48:31.948Z"
+    },
+    {
+      "id": "DFEwx4rBAuugDIsk",
+      "threadId": "cF93MwMK5sUCN0ic",
+      "parentId": "ikCnwJd9VGEg1cvI",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me here. You send task. I do.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0e3022bdcabffff1006a5b923f5c748196aa733a77bcdc1bdf"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:48:31.962Z"
+    },
+    {
+      "id": "5Ld7GbTBgeYwFwxE",
+      "threadId": "pa5tupTB5cwZb6lZ",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Test"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:50:28.996Z"
+    },
+    {
+      "id": "ix7yj2ZhNlRFaPxC",
+      "threadId": "pa5tupTB5cwZb6lZ",
+      "parentId": "5Ld7GbTBgeYwFwxE",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me here. You send task, me do.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_03f55de687392d03006a5b92b487088197a72762fe1af39bf7"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-18T14:50:29.007Z"
     }
   ]
 }
