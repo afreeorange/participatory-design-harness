@@ -1,6 +1,11 @@
 "use client";
 
-import { AssistantRuntimeProvider, useRemoteThreadListRuntime, useAui, useAuiState } from "@assistant-ui/react";
+import {
+  AssistantRuntimeProvider,
+  useRemoteThreadListRuntime,
+  useAui,
+  useAuiState,
+} from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { threadListAdapter } from "./thread-adapter";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -29,6 +34,8 @@ const ThreadRouter: FC = () => {
     if (item) {
       suppressPushRef.current = true;
       aui.threads().switchToThread(item.id);
+    } else {
+      window.history.replaceState(null, "", "/");
     }
   }, [isLoading, aui]);
 

@@ -17,8 +17,7 @@ const selectTriggerVariants = cva(
   {
     variants: {
       variant: {
-        outline:
-          "border-input hover:bg-accent hover:text-accent-foreground border bg-transparent",
+        outline: "border-input hover:bg-accent hover:text-accent-foreground border bg-transparent",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         muted: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
       },
@@ -41,8 +40,7 @@ const SelectTrigger = ({
   size,
   children,
   ...props
-}: SelectPrimitive.Trigger.Props &
-  VariantProps<typeof selectTriggerVariants>) => (
+}: SelectPrimitive.Trigger.Props & VariantProps<typeof selectTriggerVariants>) => (
   <SelectPrimitive.Trigger
     data-slot="select-trigger"
     data-variant={variant ?? "outline"}
@@ -51,16 +49,11 @@ const SelectTrigger = ({
     {...props}
   >
     {children}
-    <SelectPrimitive.Icon
-      render={<ChevronDownIcon className="opacity-50 size-4" />}
-    />
+    <SelectPrimitive.Icon render={<ChevronDownIcon className="opacity-50 size-4" />} />
   </SelectPrimitive.Trigger>
 );
 
-const SelectScrollUpButton = ({
-  className,
-  ...props
-}: SelectPrimitive.ScrollUpArrow.Props) => (
+const SelectScrollUpButton = ({ className, ...props }: SelectPrimitive.ScrollUpArrow.Props) => (
   <SelectPrimitive.ScrollUpArrow
     data-slot="select-scroll-up-button"
     className={cn(
@@ -74,10 +67,7 @@ const SelectScrollUpButton = ({
   </SelectPrimitive.ScrollUpArrow>
 );
 
-const SelectScrollDownButton = ({
-  className,
-  ...props
-}: SelectPrimitive.ScrollDownArrow.Props) => (
+const SelectScrollDownButton = ({ className, ...props }: SelectPrimitive.ScrollDownArrow.Props) => (
   <SelectPrimitive.ScrollDownArrow
     data-slot="select-scroll-down-button"
     className={cn(
@@ -128,19 +118,14 @@ const SelectContent = ({
         {...props}
       >
         <SelectScrollUpButton />
-        <SelectPrimitive.List className="scroll-my-1">
-          {children}
-        </SelectPrimitive.List>
+        <SelectPrimitive.List className="scroll-my-1">{children}</SelectPrimitive.List>
         <SelectScrollDownButton />
       </SelectPrimitive.Popup>
     </SelectPrimitive.Positioner>
   </SelectPrimitive.Portal>
 );
 
-const SelectLabel = ({
-  className,
-  ...props
-}: SelectPrimitive.GroupLabel.Props) => (
+const SelectLabel = ({ className, ...props }: SelectPrimitive.GroupLabel.Props) => (
   <SelectPrimitive.GroupLabel
     data-slot="select-label"
     className={cn("px-2 py-1.5 text-muted-foreground text-xs", className)}
@@ -148,11 +133,7 @@ const SelectLabel = ({
   />
 );
 
-const SelectItem = ({
-  className,
-  children,
-  ...props
-}: SelectPrimitive.Item.Props) => (
+const SelectItem = ({ className, children, ...props }: SelectPrimitive.Item.Props) => (
   <SelectPrimitive.Item
     data-slot="select-item"
     className={cn(
@@ -165,9 +146,7 @@ const SelectItem = ({
     {...props}
   >
     <SelectPrimitive.ItemIndicator
-      render={
-        <span className="absolute flex justify-center items-center size-4 end-3" />
-      }
+      render={<span className="absolute flex justify-center items-center size-4 end-3" />}
     >
       <CheckIcon className="size-4" />
     </SelectPrimitive.ItemIndicator>
@@ -175,10 +154,7 @@ const SelectItem = ({
   </SelectPrimitive.Item>
 );
 
-const SelectSeparator = ({
-  className,
-  ...props
-}: SelectPrimitive.Separator.Props) => (
+const SelectSeparator = ({ className, ...props }: SelectPrimitive.Separator.Props) => (
   <SelectPrimitive.Separator
     data-slot="select-separator"
     className={cn("-mx-1 my-1 bg-border h-px", className)}
@@ -193,10 +169,7 @@ export interface SelectOption {
   disabled?: boolean;
 }
 
-export interface SelectProps extends Pick<
-  SelectPrimitive.Root.Props<string>,
-  "disabled"
-> {
+export interface SelectProps extends Pick<SelectPrimitive.Root.Props<string>, "disabled"> {
   value: string;
   onValueChange: (value: string) => void;
   options: readonly SelectOption[];
@@ -204,14 +177,7 @@ export interface SelectProps extends Pick<
   className?: string;
 }
 
-function Select({
-  options,
-  placeholder,
-  className,
-  value,
-  onValueChange,
-  ...props
-}: SelectProps) {
+function Select({ options, placeholder, className, value, onValueChange, ...props }: SelectProps) {
   const selectedOption = options.find((opt) => opt.value === value);
 
   return (
@@ -242,9 +208,7 @@ function Select({
             key={itemProps.value}
             {...itemProps}
             {...(disabled !== undefined ? { disabled } : {})}
-            label={
-              textValue ?? (typeof label === "string" ? label : itemProps.value)
-            }
+            label={textValue ?? (typeof label === "string" ? label : itemProps.value)}
           >
             {label}
           </SelectItem>

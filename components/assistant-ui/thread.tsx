@@ -90,12 +90,8 @@ export type ThreadComponents = {
   AssistantMessage?: ComponentType | undefined;
   Welcome?: ComponentType | undefined;
   ToolFallback?: ToolCallMessagePartComponent | undefined;
-  ToolGroup?:
-    | ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>>
-    | undefined;
-  ReasoningGroup?:
-    | ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>>
-    | undefined;
+  ToolGroup?: ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>> | undefined;
+  ReasoningGroup?: ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>> | undefined;
 };
 
 export type ThreadProps = {
@@ -104,14 +100,12 @@ export type ThreadProps = {
 
 const EMPTY_COMPONENTS: ThreadComponents = {};
 
-const ThreadComponentsContext =
-  createContext<ThreadComponents>(EMPTY_COMPONENTS);
+const ThreadComponentsContext = createContext<ThreadComponents>(EMPTY_COMPONENTS);
 
 // Startup exposes a loading placeholder thread; treat it as a new chat so
 // the composer mounts centered. Loads after startup keep the docked layout.
 const isNewChatView = (s: AssistantState) =>
-  s.thread.messages.length === 0 &&
-  (!s.thread.isLoading || s.threads.isLoading);
+  s.thread.messages.length === 0 && (!s.thread.isLoading || s.threads.isLoading);
 
 export const Thread: FC<ThreadProps> = ({ components = EMPTY_COMPONENTS }) => {
   const isEmpty = useAuiState(isNewChatView);
@@ -152,20 +146,14 @@ const ThreadRoot: FC<{ isEmpty: boolean }> = ({ isEmpty }) => {
             <Welcome />
           </AuiIf>
 
-          <div
-            data-slot="aui_message-group"
-            className="empty:hidden flex flex-col gap-y-6 mb-14"
-          >
-            <ThreadPrimitive.Messages>
-              {() => <ThreadMessage />}
-            </ThreadPrimitive.Messages>
+          <div data-slot="aui_message-group" className="empty:hidden flex flex-col gap-y-6 mb-14">
+            <ThreadPrimitive.Messages>{() => <ThreadMessage />}</ThreadPrimitive.Messages>
           </div>
 
           <ThreadPrimitive.ViewportFooter
             className={cn(
               "flex flex-col gap-4 bg-background pb-4 md:pb-6 overflow-visible aui-thread-viewport-footer",
-              !isEmpty &&
-                "sticky bottom-0 mt-auto rounded-t-(--composer-radius)",
+              !isEmpty && "sticky bottom-0 mt-auto rounded-t-(--composer-radius)",
             )}
           >
             <ThreadScrollToBottom />
@@ -225,9 +213,7 @@ const ThreadWelcome: FC = () => {
 const ThreadSuggestions: FC = () => {
   return (
     <div className="flex flex-wrap justify-center items-center gap-2 px-4 w-full aui-thread-welcome-suggestions">
-      <ThreadPrimitive.Suggestions>
-        {() => <ThreadSuggestionItem />}
-      </ThreadPrimitive.Suggestions>
+      <ThreadPrimitive.Suggestions>{() => <ThreadSuggestionItem />}</ThreadPrimitive.Suggestions>
     </div>
   );
 };
@@ -344,8 +330,7 @@ const DataTimespanSelector: FC = () => {
     }
   }, [hasMessages, locked, aui]);
 
-  const label =
-    EVENT_TIMESPANS.find((t) => t.id === timespan)?.label ?? timespan;
+  const label = EVENT_TIMESPANS.find((t) => t.id === timespan)?.label ?? timespan;
 
   if (locked) {
     return (
@@ -355,13 +340,11 @@ const DataTimespanSelector: FC = () => {
     );
   }
 
-  const items = EVENT_TIMESPANS.filter((t) => available.includes(t.id)).map(
-    (t) => ({
-      value: t.id,
-      label: t.label,
-      // disabled: available.length > 0 && !available.includes(t.id),
-    }),
-  );
+  const items = EVENT_TIMESPANS.filter((t) => available.includes(t.id)).map((t) => ({
+    value: t.id,
+    label: t.label,
+    // disabled: available.length > 0 && !available.includes(t.id),
+  }));
 
   console.log(items);
 
@@ -541,9 +524,7 @@ const AssistantMessage: FC = () => {
                 );
               case "group-reasoning": {
                 if (ReasoningGroup) {
-                  return (
-                    <ReasoningGroup group={part}>{children}</ReasoningGroup>
-                  );
+                  return <ReasoningGroup group={part}>{children}</ReasoningGroup>;
                 }
                 const running = part.status.type === "running";
                 return (
@@ -677,9 +658,7 @@ const UserActionBar: FC = () => {
       className="flex flex-col items-end aui-user-action-bar-root"
     >
       <ActionBarPrimitive.Edit
-        render={
-          <TooltipIconButton tooltip="Edit" className="aui-user-action-edit" />
-        }
+        render={<TooltipIconButton tooltip="Edit" className="aui-user-action-edit" />}
       >
         <PencilIcon />
       </ActionBarPrimitive.Edit>
@@ -700,19 +679,11 @@ const EditComposer: FC = () => {
         />
         <div className="flex items-center self-end gap-1.5 mx-2.5 mb-2.5 aui-edit-composer-footer">
           <ComposerPrimitive.Cancel
-            render={
-              <Button
-                variant="ghost"
-                size="sm"
-                className="px-3.5 rounded-full h-8"
-              />
-            }
+            render={<Button variant="ghost" size="sm" className="px-3.5 rounded-full h-8" />}
           >
             Cancel
           </ComposerPrimitive.Cancel>
-          <ComposerPrimitive.Send
-            render={<Button size="sm" className="px-3.5 rounded-full h-8" />}
-          >
+          <ComposerPrimitive.Send render={<Button size="sm" className="px-3.5 rounded-full h-8" />}>
             Update
           </ComposerPrimitive.Send>
         </div>
@@ -721,10 +692,7 @@ const EditComposer: FC = () => {
   );
 };
 
-const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
-  className,
-  ...rest
-}) => {
+const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({ className, ...rest }) => {
   return (
     <BranchPickerPrimitive.Root
       hideWhenSingleBranch
@@ -734,9 +702,7 @@ const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
       )}
       {...rest}
     >
-      <BranchPickerPrimitive.Previous
-        render={<TooltipIconButton tooltip="Previous" />}
-      >
+      <BranchPickerPrimitive.Previous render={<TooltipIconButton tooltip="Previous" />}>
         <ChevronLeftIcon />
       </BranchPickerPrimitive.Previous>
       <span className="font-medium aui-branch-picker-state">

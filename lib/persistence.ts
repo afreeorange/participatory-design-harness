@@ -114,10 +114,7 @@ export async function listMessages(threadId: string): Promise<MessageRecord[]> {
   const store = await readStore();
   return store.messages
     .filter((m) => m.threadId === threadId)
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 }
 
 export async function appendMessage(
@@ -175,9 +172,7 @@ export async function listAvailableTimespans(): Promise<string[]> {
   return available;
 }
 
-export async function loadPatientDataByTimespan(
-  timespan: string,
-): Promise<string> {
+export async function loadPatientDataByTimespan(timespan: string): Promise<string> {
   const dir = getEnv("PATIENT_DATA_LOCATION");
   const pid = getEnv("PATIENT_ID");
   return fs.readFile(path.join(dir, `${pid}_data_${timespan}.csv`), "utf-8");

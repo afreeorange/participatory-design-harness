@@ -63,8 +63,6 @@ MIT
 
 ## Other Notes
 
-
-
 ---
 
 ## TODO before Sessions

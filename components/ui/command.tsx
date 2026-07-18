@@ -19,7 +19,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        "flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground",
+        "flex flex-col bg-popover p-1 rounded-xl! size-full overflow-hidden text-popover-foreground",
         className,
       )}
       {...props}
@@ -48,7 +48,7 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent
-        className={cn("top-1/3 translate-y-0 overflow-hidden rounded-xl! p-0", className)}
+        className={cn("top-1/3 p-0 rounded-xl! overflow-hidden translate-y-0", className)}
         showCloseButton={showCloseButton}
       >
         {children}
@@ -63,17 +63,17 @@ function CommandInput({
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
     <div data-slot="command-input-wrapper" className="p-1 pb-0">
-      <InputGroup className="h-8! rounded-lg! border-input/30 bg-input/30 shadow-none! *:data-[slot=input-group-addon]:pl-2!">
+      <InputGroup className="bg-input/30 shadow-none! *:data-[slot=input-group-addon]:pl-2! border-input/30 rounded-lg! h-8!">
         <CommandPrimitive.Input
           data-slot="command-input"
           className={cn(
-            "w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+            "disabled:opacity-50 outline-hidden w-full text-sm disabled:cursor-not-allowed",
             className,
           )}
           {...props}
         />
         <InputGroupAddon>
-          <SearchIcon className="size-4 shrink-0 opacity-50" />
+          <SearchIcon className="opacity-50 size-4 shrink-0" />
         </InputGroupAddon>
       </InputGroup>
     </div>
@@ -85,7 +85,7 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
     <CommandPrimitive.List
       data-slot="command-list"
       className={cn(
-        "no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
+        "outline-none max-h-72 overflow-x-hidden overflow-y-auto scroll-py-1 no-scrollbar",
         className,
       )}
       {...props}
@@ -100,7 +100,7 @@ function CommandEmpty({
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
-      className={cn("py-6 text-center text-sm", className)}
+      className={cn("py-6 text-sm text-center", className)}
       {...props}
     />
   );
@@ -114,7 +114,7 @@ function CommandGroup({
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
-        "overflow-hidden p-1 text-foreground **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-muted-foreground",
+        "p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 overflow-hidden **:[[cmdk-group-heading]]:font-medium text-foreground **:[[cmdk-group-heading]]:text-muted-foreground **:[[cmdk-group-heading]]:text-xs",
         className,
       )}
       {...props}
@@ -129,7 +129,7 @@ function CommandSeparator({
   return (
     <CommandPrimitive.Separator
       data-slot="command-separator"
-      className={cn("-mx-1 h-px bg-border", className)}
+      className={cn("-mx-1 bg-border h-px", className)}
       {...props}
     />
   );
@@ -150,7 +150,7 @@ function CommandItem({
       {...props}
     >
       {children}
-      <CheckIcon className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+      <CheckIcon className="group-has-data-[slot=command-shortcut]/command-item:hidden opacity-0 group-data-[checked=true]/command-item:opacity-100 ml-auto" />
     </CommandPrimitive.Item>
   );
 }
@@ -160,7 +160,7 @@ function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) 
     <span
       data-slot="command-shortcut"
       className={cn(
-        "ml-auto text-xs tracking-widest text-muted-foreground group-data-selected/command-item:text-foreground",
+        "ml-auto text-muted-foreground group-data-selected/command-item:text-foreground text-xs tracking-widest",
         className,
       )}
       {...props}

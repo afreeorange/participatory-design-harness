@@ -11,13 +11,8 @@ import {
   ThreadListPrimitive,
   useAuiState,
 } from "@assistant-ui/react";
-import {
-  ArchiveIcon,
-  MoreHorizontalIcon,
-  PlusIcon,
-  SearchIcon,
-  TrashIcon,
-} from "lucide-react";
+import { useSidebar } from "@/components/ui/sidebar";
+import { ArchiveIcon, MoreHorizontalIcon, PlusIcon, SearchIcon, TrashIcon } from "lucide-react";
 import {
   forwardRef,
   Fragment,
@@ -30,13 +25,44 @@ import {
 export const ThreadList: FC = () => {
   const [search, setSearch] = useState("");
   const hasThreads = useAuiState((s) => s.threads.threadIds.length > 0);
+  const { state, toggleSidebar } = useSidebar();
+  const collapsed = state === "collapsed";
+
+  if (collapsed) {
+    return (
+      <ThreadListRoot className="items-center">
+        <ThreadListPrimitive.New
+          render={
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              data-slot="aui_thread-list-new"
+              className="cursor-pointer"
+              aria-label="New chat"
+            />
+          }
+        >
+          <PlusIcon className="size-4 text-primary" />
+        </ThreadListPrimitive.New>
+        {hasThreads && (
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            className="cursor-pointer"
+            aria-label="Search"
+            onClick={toggleSidebar}
+          >
+            <SearchIcon className="size-4 text-primary" />
+          </Button>
+        )}
+      </ThreadListRoot>
+    );
+  }
 
   return (
     <ThreadListRoot>
       <ThreadListNew />
-      {hasThreads && (
-        <ThreadListSearch value={search} onValueChange={setSearch} />
-      )}
+      {hasThreads && <ThreadListSearch value={search} onValueChange={setSearch} />}
       <ThreadListItems searchQuery={hasThreads ? search : ""} />
     </ThreadListRoot>
   );
@@ -62,10 +88,7 @@ export const ThreadListSearch = forwardRef<
         onChange={(event) => onValueChange(event.target.value)}
         aria-label="Search"
         placeholder="Search"
-        className={cn(
-          "ps-8 h-8 placeholder:text-primary/50 text-sm",
-          className,
-        )}
+        className={cn("ps-8 h-8 placeholder:text-primary/50 text-sm", className)}
         {...props}
       />
     </div>
@@ -74,9 +97,10 @@ export const ThreadListSearch = forwardRef<
 
 ThreadListSearch.displayName = "ThreadListSearch";
 
-export const ThreadListRoot: FC<
-  ComponentPropsWithoutRef<typeof ThreadListPrimitive.Root>
-> = ({ className, ...props }) => {
+export const ThreadListRoot: FC<ComponentPropsWithoutRef<typeof ThreadListPrimitive.Root>> = ({
+  className,
+  ...props
+}) => {
   return (
     <ThreadListPrimitive.Root
       data-slot="aui_thread-list-root"
@@ -86,9 +110,11 @@ export const ThreadListRoot: FC<
   );
 };
 
-export const ThreadListItems: FC<
-  ComponentPropsWithoutRef<"div"> & { searchQuery?: string }
-> = ({ className, searchQuery = "", ...props }) => {
+export const ThreadListItems: FC<ComponentPropsWithoutRef<"div"> & { searchQuery?: string }> = ({
+  className,
+  searchQuery = "",
+  ...props
+}) => {
   return (
     <div
       data-slot="aui_thread-list-items"
@@ -112,10 +138,7 @@ export const ThreadListItems: FC<
 
 const DAY_IN_MS = 86_400_000;
 
-const dateGroupLabel = (
-  date: Date | undefined,
-  startOfToday: number,
-): string => {
+const dateGroupLabel = (date: Date | undefined, startOfToday: number): string => {
   if (!date || date.getTime() >= startOfToday) return "Today";
   if (date.getTime() >= startOfToday - DAY_IN_MS) return "Yesterday";
   return "Earlier";
@@ -123,9 +146,7 @@ const dateGroupLabel = (
 
 type ThreadListGroup = { label: string; indices: number[] };
 
-const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
-  searchQuery = "",
-}) => {
+const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({ searchQuery = "" }) => {
   const threadIds = useAuiState((s) => s.threads.threadIds);
   const threadItems = useAuiState((s) => s.threads.threadItems);
 
@@ -138,10 +159,7 @@ const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
       .map((id, index) => ({ id, index }))
       .filter(
         ({ id }) =>
-          !query ||
-          (itemsById.get(id)?.title || "New Chat")
-            .toLowerCase()
-            .includes(query),
+          !query || (itemsById.get(id)?.title || "New Chat").toLowerCase().includes(query),
       )
       .map(({ index }) => index);
     if (!filteredIndices.some((index) => dates[index])) {
@@ -149,13 +167,8 @@ const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
     }
 
     const now = new Date();
-    const startOfToday = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-    ).getTime();
-    const time = (index: number) =>
-      dates[index]?.getTime() ?? Number.MAX_SAFE_INTEGER;
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const time = (index: number) => dates[index]?.getTime() ?? Number.MAX_SAFE_INTEGER;
     const sorted = [...filteredIndices].sort((a, b) => time(b) - time(a));
 
     const result: ThreadListGroup[] = [];
@@ -173,10 +186,7 @@ const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
 
   if (query && filteredIndices.length === 0) {
     return (
-      <div
-        data-slot="aui_thread-list-empty"
-        className="px-2.5 py-4 text-muted-foreground text-sm"
-      >
+      <div data-slot="aui_thread-list-empty" className="px-2.5 py-4 text-muted-foreground text-sm">
         No threads found
       </div>
     );
@@ -186,10 +196,7 @@ const ThreadListItemGroups: FC<{ searchQuery?: string }> = ({
     return filteredIndices.map((index) => {
       return (
         <Fragment key={threadIds[index]}>
-          <ThreadListPrimitive.ItemByIndex
-            index={index}
-            components={{ ThreadListItem }}
-          />
+          <ThreadListPrimitive.ItemByIndex index={index} components={{ ThreadListItem }} />
         </Fragment>
       );
     });
@@ -235,10 +242,7 @@ export const ThreadListNew = forwardRef<
     >
       {children ?? (
         <>
-          <PlusIcon
-            data-slot="aui_thread-list-new-icon"
-            className="size-5 text-primary shrink-0"
-          />
+          <PlusIcon data-slot="aui_thread-list-new-icon" className="size-5 text-primary shrink-0" />
           <span
             data-slot="aui_thread-list-new-label"
             className={cn("whitespace-nowrap", labelClassName)}
@@ -264,10 +268,7 @@ const ThreadListSkeleton: FC = () => {
           data-slot="aui_thread-list-skeleton-wrapper"
           className="flex items-center px-2.5 h-8"
         >
-          <Skeleton
-            data-slot="aui_thread-list-skeleton"
-            className="w-full h-3.5"
-          />
+          <Skeleton data-slot="aui_thread-list-skeleton" className="w-full h-3.5" />
         </div>
       ))}
     </div>
@@ -284,10 +285,7 @@ export const ThreadListItem: FC = () => {
         data-slot="aui_thread-list-item-trigger"
         className="flex flex-1 items-center px-2.5 group-data-active:pe-9 group-has-data-[state=open]:pe-9 group-has-focus-visible:pe-9 group-hover:pe-9 rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 min-w-0 h-full text-sm text-start"
       >
-        <span
-          data-slot="aui_thread-list-item-title"
-          className="flex-1 min-w-0 truncate"
-        >
+        <span data-slot="aui_thread-list-item-title" className="flex-1 min-w-0 truncate">
           <ThreadListItemPrimitive.Title fallback="New Chat" />
         </span>
       </ThreadListItemPrimitive.Trigger>
