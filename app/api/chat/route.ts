@@ -25,10 +25,19 @@ export async function POST(req: Request) {
 
   console.log(`${badge} ${count} ${kleur.green("→")} ${model} ${kleur.dim(" ⌾ ")} ${context}`);
 
-  const [systemPrompt, patientData] = await Promise.all([
-    loadSystemPrompt(),
-    loadPatientDataByTimespan(dataTimespan),
-  ]);
+  let systemPrompt: string;
+  let patientData: string;
+
+  if (process.env.CI) {
+    const baked = await import("@/lib/baked.generated");
+    systemPrompt = baked.SYSTEM_PROMPT;
+    patientData = baked.PATIENT_DATA[dataTimespan] ?? "";
+  } else {
+    [systemPrompt, patientData] = await Promise.all([
+      loadSystemPrompt(),
+      loadPatientDataByTimespan(dataTimespan),
+    ]);
+  }
 
   const system = [systemPrompt, "--- Patient Data (CSV) ---", patientData].join("\n\n");
 

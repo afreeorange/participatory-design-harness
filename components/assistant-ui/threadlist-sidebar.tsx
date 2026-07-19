@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useAui, useAuiState } from "@assistant-ui/react";
+import { searchThreads as searchLocalThreads } from "@/lib/client-store";
 
 export function ThreadListSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -104,19 +105,24 @@ function ThreadSearchDialog() {
     setSearching(true);
 
     const timer = setTimeout(() => {
-      abortRef.current?.abort();
-      const ctrl = new AbortController();
-      abortRef.current = ctrl;
+      if (process.env.NEXT_PUBLIC_CLIENT_STORAGE) {
+        setResults(searchLocalThreads(q));
+        setSearching(false);
+      } else {
+        abortRef.current?.abort();
+        const ctrl = new AbortController();
+        abortRef.current = ctrl;
 
-      fetch(`/api/threads/search?q=${encodeURIComponent(q)}`, {
-        signal: ctrl.signal,
-      })
-        .then((r) => r.json())
-        .then((data: SearchResult[]) => {
-          setResults(data);
-          setSearching(false);
+        fetch(`/api/threads/search?q=${encodeURIComponent(q)}`, {
+          signal: ctrl.signal,
         })
-        .catch(() => {});
+          .then((r) => r.json())
+          .then((data: SearchResult[]) => {
+            setResults(data);
+            setSearching(false);
+          })
+          .catch(() => {});
+      }
     }, 500);
     return () => clearTimeout(timer);
   }, [query]);

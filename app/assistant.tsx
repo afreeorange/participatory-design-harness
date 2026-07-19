@@ -8,6 +8,7 @@ import {
 } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { threadListAdapter } from "./thread-adapter";
+import { clientThreadListAdapter } from "./client-thread-adapter";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { ThreadListSidebar } from "@/components/assistant-ui/threadlist-sidebar";
 import { Thread } from "@/components/assistant-ui/thread";
@@ -82,9 +83,13 @@ const ThreadRouter: FC = () => {
 };
 
 export const Assistant = () => {
+  const adapter = process.env.NEXT_PUBLIC_CLIENT_STORAGE
+    ? clientThreadListAdapter
+    : threadListAdapter;
+
   const runtime = useRemoteThreadListRuntime({
     runtimeHook: () => useChatRuntime(),
-    adapter: threadListAdapter,
+    adapter,
   });
 
   return (

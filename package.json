@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "bake": "node scripts/bake.mjs",
     "build": "next build",
     "start": "next start",
     "format": "oxfmt --check",

@@ -55,6 +55,21 @@
       "createdAt": "2026-07-18T17:28:21.391Z",
       "updatedAt": "2026-07-18T17:35:03.094Z",
       "dataTimespan": "all_available"
+    },
+    {
+      "id": "nc105Kx3QeQ2jVQa",
+      "title": "Data Interaction Inquiry",
+      "status": "regular",
+      "createdAt": "2026-07-19T19:58:00.196Z",
+      "updatedAt": "2026-07-19T20:09:35.465Z",
+      "dataTimespan": "all_available"
+    },
+    {
+      "id": "ODASFRuw1ZFy7NI6",
+      "title": "Testing Data Summary Inquiry",
+      "status": "regular",
+      "createdAt": "2026-07-19T20:09:48.753Z",
+      "updatedAt": "2026-07-19T20:09:55.580Z"
     }
   ],
   "messages": [
@@ -541,6 +556,94 @@
         ]
       },
       "createdAt": "2026-07-18T17:35:03.094Z"
+    },
+    {
+      "id": "OKjQ260kBIA01yOl",
+      "threadId": "nc105Kx3QeQ2jVQa",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Hello"
+          }
+        ]
+      },
+      "createdAt": "2026-07-19T19:58:03.067Z"
+    },
+    {
+      "id": "Ok23H0cx3IMojCYt",
+      "threadId": "nc105Kx3QeQ2jVQa",
+      "parentId": "OKjQ260kBIA01yOl",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Hello. Me here. What you want do with data?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_051e21c2dbf2339d006a5d2c4a0fd08196bcb1e4cac32a5e75"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-19T19:58:03.083Z"
+    },
+    {
+      "id": "VJ9KzZ0dFdpHxlFo",
+      "threadId": "ODASFRuw1ZFy7NI6",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Testing"
+          }
+        ]
+      },
+      "createdAt": "2026-07-19T20:09:52.965Z"
+    },
+    {
+      "id": "vSQjFajSa1PUnz80",
+      "threadId": "ODASFRuw1ZFy7NI6",
+      "parentId": "VJ9KzZ0dFdpHxlFo",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me see data table. You say “Testing.” You want me do what with it? Say task: summary, counts, max/min, or find pattern.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_072b78716d6e1785006a5d2f1014b081949551649f714aee42"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-19T20:09:52.984Z"
     }
   ]
 }

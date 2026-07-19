@@ -308,6 +308,7 @@ const DataTimespanSelector: FC = () => {
   useEffect(() => {
     if (!hasMessages || locked) return;
     setLocked(true);
+    if (process.env.NEXT_PUBLIC_CLIENT_STORAGE) return;
 
     try {
       const remoteId = aui.threadListItem()?.getState()?.remoteId;
