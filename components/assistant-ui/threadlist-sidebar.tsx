@@ -117,7 +117,7 @@ function ThreadSearchDialog() {
           setSearching(false);
         })
         .catch(() => {});
-    }, 150);
+    }, 500);
     return () => clearTimeout(timer);
   }, [query]);
 
