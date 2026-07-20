@@ -4,7 +4,7 @@ TODO: Explain what problem this solves.
 
 ## Development
 
-This project is built using [AssistantUI](https://www.assistant-ui.com/), [Next.js](https://nextjs.org/), [shadcn](https://ui.shadcn.com/), and TailwindCSS.
+This project is built using [AssistantUI](https://www.assistant-ui.com/), [Next.js](https://nextjs.org/), [Shadcn](https://ui.shadcn.com/), and [TailwindCSS](https://tailwindcss.com/).
 
 ```bash
 # Install Dependencies
@@ -114,8 +114,8 @@ window,calm,high
 
 ## Authors
 
-- Adrienne Pichon
-- Nikhil Anand
+- [Adrienne Pichon](https://www.columbia.edu/~ab3886/)
+- [Nikhil Anand](https://nikhil.io)
 
 ## License
 
@@ -130,12 +130,12 @@ MIT
 - [x] Model picker -- fix to ChatGippity 5.2
 - [x] Collapsible indicator
 - [x] Mini search as modal
-- [-] Quotes around chat summaries?
+- [ ] Quotes around chat summaries?
 - [ ] Try with Lab key and lab data
 - [x] Remove edit button
 - [x] Remove loop button
 - [x] Remove markdown button
-- [-] Remove copy button
+- [ ] Remove copy button
 - [x] Fix colors?
 - [x] Vercel for demo?
 - [ ] Graceful/human error handling in UI?
