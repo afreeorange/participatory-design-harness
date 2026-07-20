@@ -90,23 +90,12 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
     };
   },
 
-  async generateTitle(_remoteId, messages) {
+  async generateTitle(remoteId, messages) {
     return createAssistantStream(async (controller) => {
-      let title = "New Chat";
-      const first = messages.find(
-        (m: Record<string, unknown>) => m.role === "user",
-      );
-      if (first) {
-        const content = (first as Record<string, unknown>).content;
-        if (typeof content === "string") {
-          title = content.slice(0, 60);
-        } else if (Array.isArray(content)) {
-          const text = content.find(
-            (p: Record<string, unknown>) => p.type === "text",
-          );
-          if (text) title = String(text.text).slice(0, 60);
-        }
-      }
+      const { title } = await fetch(`/api/threads/${remoteId}/title`, {
+        method: "POST",
+        body: JSON.stringify({ messages }),
+      }).then((r) => r.json());
       controller.appendText(title);
     });
   },
@@ -147,14 +136,23 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
           ) {
             const { remoteId } = await aui.threadListItem().initialize();
             const store = readStore();
-            store.messages.push({
-              id: fmt.getId(item.message),
+            const id = fmt.getId(item.message);
+            const entry = {
+              id,
               threadId: remoteId,
-              parentId: item.parentId,
+              parent_id: item.parentId,
               format: fmt.format,
               content: fmt.encode(item) as unknown,
               createdAt: new Date().toISOString(),
-            });
+            };
+            const idx = store.messages.findIndex(
+              (m) => m.id === id && m.threadId === remoteId,
+            );
+            if (idx >= 0) {
+              store.messages[idx] = entry;
+            } else {
+              store.messages.push(entry);
+            }
             const thread = store.threads.find((t) => t.id === remoteId);
             if (thread) thread.updatedAt = new Date().toISOString();
             writeStore(store);

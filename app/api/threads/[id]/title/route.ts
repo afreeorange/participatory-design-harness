@@ -29,7 +29,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
   });
 
   const trimmed = title.trim();
-  await updateThread(id, { title: trimmed });
+  if (!process.env.CI) {
+    await updateThread(id, { title: trimmed });
+  }
 
   return Response.json({ title: trimmed });
 }

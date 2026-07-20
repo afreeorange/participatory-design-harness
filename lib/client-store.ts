@@ -12,7 +12,7 @@ type ThreadEntry = {
 type MessageEntry = {
   id: string;
   threadId: string;
-  parentId: string | null;
+  parent_id: string | null;
   format: string;
   content: unknown;
   createdAt?: string;
