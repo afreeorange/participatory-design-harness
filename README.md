@@ -1,8 +1,10 @@
-# Participatory Design Test
+# Participatory Design Harness
+
+TODO: Explain what problem this solves.
 
 ## Development
 
-TODO: Finish this.
+This project is built using [AssistantUI](https://www.assistant-ui.com/), [Next.js](https://nextjs.org/), [shadcn](https://ui.shadcn.com/), and TailwindCSS.
 
 ```bash
 # Install Dependencies
@@ -11,17 +13,38 @@ pnpm i
 # Start the server
 pnpm dev
 
-# Add new components
-npx assistant-ui add
+# Fix formatting
+pnpm format:fix
+
+# Build
+pnpm build
 ```
 
-### Key Files
+You must set these environment variables prior to running or deploying this harness.
 
-- `app/assistant.tsx` - Sets up the runtime provider
-- `app/api/chat/route.ts` - Chat API endpoint
-- `components/assistant-ui/thread.tsx` - Chat thread component
+```bash
+OPENAI_API_KEY=foobar
+SYSTEM_PROMPT_LOCATION=/full/path/to/system-prompt.txt
+PATIENT_ID=1234
+PATIENT_DATA_LOCATION=/full/path/to/csv/files/
+PATIENT_THREADS_LOCATION=/full/path/to/location/
+```
 
-### Participant Data
+- `OPENAI_API_KEY` is exactly what you think it is.
+- `SYSTEM_PROMPT_LOCATION` is the _absolute/full path_ to the additional System Prompt on your computer as a _text file_.
+- `PATIENT_ID` is the patient/participant identifier you will use for a session. You will modify this per session.
+- `PATIENT_DATA_LOCATION` is the _absolute/full path_ to the
+
+### Persistence
+
+This is meant to be run locally but [is deployed in Vercel](https://participatory-design-harness.vercel.app) for a demo.
+
+- When run **locally**, all conversation data is read from and written to disk to the location specified by `PATIENT_THREADS_LOCATION`.
+- When **deployed**, all conversation data is read from and written to LocalStorage.
+
+### Patient Data
+
+These are CSVs in the location specified by `PATIENT_DATA_LOCATION`. Together with the `PATIENT_ID`, they _must_ be named:
 
 The naming schema needs to be like this:
 
@@ -48,7 +71,46 @@ import OpenAI from "openai";
 })();
 ```
 
-We're using ChatGPT 5.2 since that's the one anointed by Columbia.
+We're using ChatGPT 5.2 since that's the one anointed by Columbia. Thread summaries (in the sidebar) are generated usin GPT 4o Mini.
+
+### Running this Harness
+
+All participatory sessions are run locally and over Zoom but a demo is [deployed in Vercel](https://participatory-design-harness.vercel.app/). It uses the following additional system prompt:
+
+```text
+Speak like a caveman. Be brief. Save a poor graduate student some tokens yo.
+```
+
+And the following CSV data generated using ChatGPT
+
+```text
+Object,Emotion,Intensity
+dog,happiness,high
+cat,sadness,medium
+tree,calm,low
+car,anger,high
+book,curiosity,medium
+phone,anxiety,high
+chair,boredom,low
+table,surprise,medium
+bicycle,fear,high
+flower,love,medium
+computer,excitement,high
+clock,frustration,medium
+lamp,calm,low
+backpack,curiosity,medium
+shoe,happiness,low
+umbrella,sadness,high
+camera,surprise,medium
+guitar,love,high
+piano,excitement,medium
+television,boredom,low
+mirror,anxiety,medium
+window,calm,high
+.
+.
+.
+```
 
 ## Authors
 
@@ -61,23 +123,19 @@ MIT
 
 ---
 
-## Other Notes
+## TODO
 
----
-
-## TODO before Sessions
-
-- [ ] Allow participants to pick the timespan
-- [ ] Title above chats
-- [ ] Model picker -- fix to ChatGippity 5.2
-- [ ] Collapsible indicator
-- [ ] Mini search as modal
-- [ ] Quotes around chat summaries?
+- [x] Allow participants to pick the timespan
+- [x] Title above chats
+- [x] Model picker -- fix to ChatGippity 5.2
+- [x] Collapsible indicator
+- [x] Mini search as modal
+- [-] Quotes around chat summaries?
 - [ ] Try with Lab key and lab data
-- [ ] Remove edit button
-- [ ] Remove loop button
-- [ ] Remove markdown button
+- [x] Remove edit button
+- [x] Remove loop button
+- [x] Remove markdown button
 - [-] Remove copy button
-- [ ] Fix colors?
-- [ ] Vercel for demo?
+- [x] Fix colors?
+- [x] Vercel for demo?
 - [ ] Graceful/human error handling in UI?
