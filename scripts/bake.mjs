@@ -4,11 +4,8 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const PATIENT_ID = process.env.PATIENT_ID ?? "1234";
-const DATA_DIR =
-  process.env.PATIENT_DATA_LOCATION ?? path.join(ROOT, "data/CSVs");
-const PROMPT_FILE =
-  process.env.SYSTEM_PROMPT_LOCATION ??
-  path.join(ROOT, "data/system-prompt.txt");
+const DATA_DIR = process.env.PATIENT_DATA_LOCATION ?? path.join(ROOT, "data/CSVs");
+const PROMPT_FILE = process.env.SYSTEM_PROMPT_LOCATION ?? path.join(ROOT, "data/system-prompt.txt");
 
 const systemPrompt = fs.readFileSync(PROMPT_FILE, "utf-8");
 
@@ -25,10 +22,7 @@ const patientData = {};
 const available = [];
 for (const ts of TIMESPANS) {
   try {
-    patientData[ts] = fs.readFileSync(
-      path.join(DATA_DIR, `${PATIENT_ID}_data_${ts}.csv`),
-      "utf-8",
-    );
+    patientData[ts] = fs.readFileSync(path.join(DATA_DIR, `${PATIENT_ID}_data_${ts}.csv`), "utf-8");
     available.push(ts);
   } catch {
     // file not found — skip
@@ -42,6 +36,4 @@ export const AVAILABLE_TIMESPANS: string[] = ${JSON.stringify(available)};
 `;
 
 fs.writeFileSync(path.join(ROOT, "lib/baked.generated.ts"), out);
-console.log(
-  `Baked: prompt + ${available.length} timespans → lib/baked.generated.ts`,
-);
+console.log(`Baked: prompt + ${available.length} timespans → lib/baked.generated.ts`);

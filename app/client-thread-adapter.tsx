@@ -17,9 +17,7 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
     let dirty = false;
     for (const t of store.threads) {
       if (t.title) continue;
-      const firstMsg = store.messages.find(
-        (m) => m.threadId === t.id,
-      );
+      const firstMsg = store.messages.find((m) => m.threadId === t.id);
       if (!firstMsg) continue;
       const text = extractText(firstMsg.content).trim();
       if (text) {
@@ -30,10 +28,7 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
     if (dirty) writeStore(store);
     return {
       threads: store.threads
-        .sort(
-          (a, b) =>
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-        )
+        .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
         .map((t) => ({
           status: t.status as "regular" | "archived",
           remoteId: t.id,
@@ -137,31 +132,24 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
         },
         async append() {},
         withFormat: <TMessage, TStorageFormat extends Record<string, unknown>>(
-          fmt: import("@assistant-ui/react").MessageFormatAdapter<
-            TMessage,
-            TStorageFormat
-          >,
+          fmt: import("@assistant-ui/react").MessageFormatAdapter<TMessage, TStorageFormat>,
         ) => ({
           async load() {
             const { remoteId } = aui.threadListItem().getState();
             if (!remoteId)
               return {
-                messages:
-                  [] as import("@assistant-ui/react").MessageFormatItem<TMessage>[],
+                messages: [] as import("@assistant-ui/react").MessageFormatItem<TMessage>[],
               };
             const store = readStore();
             const rows = store.messages
               .filter((m) => m.threadId === remoteId)
               .sort(
                 (a, b) =>
-                  new Date(a.createdAt ?? 0).getTime() -
-                  new Date(b.createdAt ?? 0).getTime(),
+                  new Date(a.createdAt ?? 0).getTime() - new Date(b.createdAt ?? 0).getTime(),
               ) as unknown as import("@assistant-ui/react").MessageStorageEntry<TStorageFormat>[];
             return { messages: rows.map((row) => fmt.decode(row)) };
           },
-          async append(
-            item: import("@assistant-ui/react").MessageFormatItem<TMessage>,
-          ) {
+          async append(item: import("@assistant-ui/react").MessageFormatItem<TMessage>) {
             const { remoteId } = await aui.threadListItem().initialize();
             const store = readStore();
             const id = fmt.getId(item.message);
@@ -173,9 +161,7 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
               content: fmt.encode(item) as unknown,
               createdAt: new Date().toISOString(),
             };
-            const idx = store.messages.findIndex(
-              (m) => m.id === id && m.threadId === remoteId,
-            );
+            const idx = store.messages.findIndex((m) => m.id === id && m.threadId === remoteId);
             if (idx >= 0) {
               store.messages[idx] = entry;
             } else {
@@ -189,10 +175,6 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
       }),
       [aui],
     );
-    return (
-      <RuntimeAdapterProvider adapters={{ history }}>
-        {children}
-      </RuntimeAdapterProvider>
-    );
+    return <RuntimeAdapterProvider adapters={{ history }}>{children}</RuntimeAdapterProvider>;
   },
 };
