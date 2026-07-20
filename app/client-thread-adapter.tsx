@@ -107,6 +107,13 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
       body: JSON.stringify({ messages }),
     });
     const { title } = await res.json();
+    const store = readStore();
+    const t = store.threads.find((t) => t.id === remoteId);
+    if (t) {
+      t.title = title;
+      t.updatedAt = new Date().toISOString();
+      writeStore(store);
+    }
     return createAssistantStream(async (controller) => {
       controller.appendText(title);
     });
