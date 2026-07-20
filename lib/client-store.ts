@@ -37,13 +37,12 @@ export function writeStore(data: StoreData) {
 
 // -- search helpers (mirrors persistence.ts logic) --
 
-function extractText(content: unknown): string {
+export function extractText(content: unknown): string {
   if (typeof content === "string") return content;
   if (!content || typeof content !== "object") return "";
   const parts = Array.isArray(content)
     ? content
-    : "parts" in content &&
-        Array.isArray((content as { parts: unknown }).parts)
+    : "parts" in content && Array.isArray((content as { parts: unknown }).parts)
       ? (content as { parts: unknown[] }).parts
       : [];
   return parts

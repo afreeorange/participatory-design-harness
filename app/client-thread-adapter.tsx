@@ -8,11 +8,26 @@ import {
 } from "@assistant-ui/react";
 import { createAssistantStream } from "assistant-stream";
 import { useMemo } from "react";
-import { readStore, writeStore } from "@/lib/client-store";
+import { readStore, writeStore, extractText } from "@/lib/client-store";
 
 export const clientThreadListAdapter: RemoteThreadListAdapter = {
   async list() {
     const store = readStore();
+    // Auto-title untitled threads from first user message
+    let dirty = false;
+    for (const t of store.threads) {
+      if (t.title) continue;
+      const firstMsg = store.messages.find(
+        (m) => m.threadId === t.id,
+      );
+      if (!firstMsg) continue;
+      const text = extractText(firstMsg.content).trim();
+      if (text) {
+        t.title = text.slice(0, 50) + (text.length > 50 ? "…" : "");
+        dirty = true;
+      }
+    }
+    if (dirty) writeStore(store);
     return {
       threads: store.threads
         .sort(
@@ -90,12 +105,25 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
     };
   },
 
-  async generateTitle(remoteId, messages) {
+  async generateTitle(_remoteId, messages) {
+    // Extract title client-side to avoid API failures on Vercel
+    const firstUser = messages.find((m) => m.role === "user");
+    let title = "Chat";
+    if (firstUser) {
+      const text =
+        typeof firstUser.content === "string"
+          ? firstUser.content
+          : Array.isArray(firstUser.content)
+            ? firstUser.content
+                .filter((p) => p.type === "text")
+                .map((p) => ("text" in p ? p.text : ""))
+                .join(" ")
+            : "";
+      if (text.trim()) {
+        title = text.trim().slice(0, 50) + (text.trim().length > 50 ? "…" : "");
+      }
+    }
     return createAssistantStream(async (controller) => {
-      const { title } = await fetch(`/api/threads/${remoteId}/title`, {
-        method: "POST",
-        body: JSON.stringify({ messages }),
-      }).then((r) => r.json());
       controller.appendText(title);
     });
   },
