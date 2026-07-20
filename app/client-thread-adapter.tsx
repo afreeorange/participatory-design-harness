@@ -100,24 +100,13 @@ export const clientThreadListAdapter: RemoteThreadListAdapter = {
     };
   },
 
-  async generateTitle(_remoteId, messages) {
-    // Extract title client-side to avoid API failures on Vercel
-    const firstUser = messages.find((m) => m.role === "user");
-    let title = "Chat";
-    if (firstUser) {
-      const text =
-        typeof firstUser.content === "string"
-          ? firstUser.content
-          : Array.isArray(firstUser.content)
-            ? firstUser.content
-                .filter((p) => p.type === "text")
-                .map((p) => ("text" in p ? p.text : ""))
-                .join(" ")
-            : "";
-      if (text.trim()) {
-        title = text.trim().slice(0, 50) + (text.trim().length > 50 ? "…" : "");
-      }
-    }
+  async generateTitle(remoteId, messages) {
+    const res = await fetch(`/api/threads/${remoteId}/title`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    });
+    const { title } = await res.json();
     return createAssistantStream(async (controller) => {
       controller.appendText(title);
     });
