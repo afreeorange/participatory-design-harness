@@ -137,3 +137,11 @@ export const EVENT_TIMESPANS = [
 ] as const;
 
 export const DAY_IN_MS = 86_400_000 as const;
+
+export const CONVERSATION_STARTERS = [
+  "How you would classify this week of data from A) Good, B) Manageable/Good, C) Manageable/Bad, D) Bad",
+  "Help me characterize my flare-ups.",
+  "Help me figure out what self-management to use.",
+  "Help me see if self-management is helpful for my symptoms.",
+  "Help me prepare for a doctor visit I have coming up.",
+];

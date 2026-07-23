@@ -5,7 +5,7 @@
       "title": "Friendly Greeting Exchange",
       "status": "regular",
       "createdAt": "2026-07-23T17:49:42.248Z",
-      "updatedAt": "2026-07-23T17:52:16.223Z",
+      "updatedAt": "2026-07-23T21:06:48.526Z",
       "dataTimespan": "all_available"
     },
     {
@@ -22,6 +22,21 @@
       "createdAt": "2026-07-23T18:12:11.136Z",
       "updatedAt": "2026-07-23T18:15:07.593Z",
       "dataTimespan": "all_available"
+    },
+    {
+      "id": "la2oxVSOsvI5lItb",
+      "title": "\"CSV Task Inquiry\"",
+      "status": "regular",
+      "createdAt": "2026-07-23T21:09:39.622Z",
+      "updatedAt": "2026-07-23T21:11:52.552Z",
+      "dataTimespan": "all_available"
+    },
+    {
+      "id": "BQ2Kc3FP3eoDlWOJ",
+      "title": "Characterizing Flare-Ups Effectively",
+      "status": "regular",
+      "createdAt": "2026-07-23T21:24:28.865Z",
+      "updatedAt": "2026-07-23T21:24:36.776Z"
     }
   ],
   "messages": [
@@ -244,6 +259,182 @@
         ]
       },
       "createdAt": "2026-07-23T18:12:20.491Z"
+    },
+    {
+      "id": "YeKhHCydMPjF8i7E",
+      "threadId": "zmFP4pZIGqfRMUAB",
+      "parentId": "jTywWzjZAd6VnynM",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Help me figure out what self-management to use."
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:06:48.503Z"
+    },
+    {
+      "id": "cOXBeo3rwNnTtmar",
+      "threadId": "zmFP4pZIGqfRMUAB",
+      "parentId": "YeKhHCydMPjF8i7E",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Need more info, human. What you feel now (anger/sad/anxiety/etc)? How strong (low/med/high)? What happen?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d7113e03637a637006a628267d7188193800ac98612f76ef7"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:06:48.526Z"
+    },
+    {
+      "id": "J1W4yZQ2WXLKXkDm",
+      "threadId": "la2oxVSOsvI5lItb",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Testing"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:09:41.356Z"
+    },
+    {
+      "id": "FWm4JkMqgEx4KEXH",
+      "threadId": "la2oxVSOsvI5lItb",
+      "parentId": "J1W4yZQ2WXLKXkDm",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me see “Testing”. You want me do what with CSV? Tell task.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0f6e82a4ad9a760b006a6283147d648196ac38f17d3f8b08d2"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:09:41.372Z"
+    },
+    {
+      "id": "G9siWvjm67v17dHg",
+      "threadId": "la2oxVSOsvI5lItb",
+      "parentId": "FWm4JkMqgEx4KEXH",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Help me characterize my flare-ups."
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:11:52.537Z"
+    },
+    {
+      "id": "gDKynISmGLOuBX24",
+      "threadId": "la2oxVSOsvI5lItb",
+      "parentId": "G9siWvjm67v17dHg",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Need more info, human. CSV show object+feeling+intensity, not your flare-up time.\n\nYou tell:\n1) Flare-up = what symptom? (pain? anxiety? anger?)  \n2) When happen? (time/day, how long)  \n3) Triggers? (places/objects like phone, car, microphone?)  \n4) Scale 0–10? meds? sleep/caffeine?\n\nFrom your CSV, top “high” danger vibes:\n- anxiety: phone, microphone\n- fear: bicycle\n- anger: car\n- sadness: umbrella, bed\n- excitement: computer, coffee\n- calm: window\n\nYou pick which match your real flare-ups, then me group + pattern.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0f6e82a4ad9a760b006a6283950d5c81968460c5bcac1f206c"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:11:52.552Z"
+    },
+    {
+      "id": "7Vzu33aUq1hmxRkp",
+      "threadId": "BQ2Kc3FP3eoDlWOJ",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Help me characterize my flare-ups."
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:24:34.840Z"
+    },
+    {
+      "id": "70eH6AvRIfETVnKw",
+      "threadId": "BQ2Kc3FP3eoDlWOJ",
+      "parentId": "7Vzu33aUq1hmxRkp",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Need more info, human. CSV show object+feeling only. For *your* flare-ups, tell:\n\n1) What flare-up mean? (pain? IBS? skin? anxiety? anger?)  \n2) When happen (time, day, cycle), how long.  \n3) Intensity 0–10.  \n4) Triggers (food, sleep, stress, meds, weather).  \n5) Body spot + symptoms (rash, cramps, panic, etc).  \n6) What help / what make worse.\n\nIf you want use your CSV: I group by intensity.\n\nHigh intensity feelings:  \n- Anxiety: phone, microphone  \n- Fear: bicycle  \n- Anger: car  \n- Excitement: computer, coffee  \n- Surprise: banana, mountain  \n- Love: guitar, blanket  \n- Sadness: umbrella, bed  \n- Calm: window  \n- Curiosity: notebook, rocket  \n- Boredom: hat  \n- Happiness: dog\n\nTell me your top 3 flare-up episodes (last week). I make pattern.",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0ae7e7347b30d612006a62868ef84881948fb12bd771d37c53"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T21:24:34.848Z"
     }
   ]
 }

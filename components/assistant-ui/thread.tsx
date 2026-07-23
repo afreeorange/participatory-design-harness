@@ -46,6 +46,7 @@ import {
   ChevronRightIcon,
   CopyIcon,
   DownloadIcon,
+  MessageSquareText,
   MicIcon,
   MoreHorizontalIcon,
   PencilIcon,
@@ -74,7 +75,12 @@ import {
   SelectValue,
   SelectSeparator,
 } from "@/components/ui/select";
-import { EVENT_TIMESPANS } from "@/app/constants";
+import { CONVERSATION_STARTERS, EVENT_TIMESPANS } from "@/app/constants";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { DotMatrix } from "@/components/assistant-ui/dot-matrix";
 
 export type ThreadGroupPart = MessagePrimitive.GroupedParts.GroupPart;
@@ -90,8 +96,12 @@ export type ThreadComponents = {
   AssistantMessage?: ComponentType | undefined;
   Welcome?: ComponentType | undefined;
   ToolFallback?: ToolCallMessagePartComponent | undefined;
-  ToolGroup?: ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>> | undefined;
-  ReasoningGroup?: ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>> | undefined;
+  ToolGroup?:
+    | ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>>
+    | undefined;
+  ReasoningGroup?:
+    | ComponentType<PropsWithChildren<{ group: ThreadGroupPart }>>
+    | undefined;
 };
 
 export type ThreadProps = {
@@ -100,12 +110,14 @@ export type ThreadProps = {
 
 const EMPTY_COMPONENTS: ThreadComponents = {};
 
-const ThreadComponentsContext = createContext<ThreadComponents>(EMPTY_COMPONENTS);
+const ThreadComponentsContext =
+  createContext<ThreadComponents>(EMPTY_COMPONENTS);
 
 // Startup exposes a loading placeholder thread; treat it as a new chat so
 // the composer mounts centered. Loads after startup keep the docked layout.
 const isNewChatView = (s: AssistantState) =>
-  s.thread.messages.length === 0 && (!s.thread.isLoading || s.threads.isLoading);
+  s.thread.messages.length === 0 &&
+  (!s.thread.isLoading || s.threads.isLoading);
 
 export const Thread: FC<ThreadProps> = ({ components = EMPTY_COMPONENTS }) => {
   const isEmpty = useAuiState(isNewChatView);
@@ -143,14 +155,20 @@ const ThreadRoot: FC<{ isEmpty: boolean }> = ({ isEmpty }) => {
             </div>
           </AuiIf>
 
-          <div data-slot="aui_message-group" className="empty:hidden flex flex-col gap-y-6 mb-14">
-            <ThreadPrimitive.Messages>{() => <ThreadMessage />}</ThreadPrimitive.Messages>
+          <div
+            data-slot="aui_message-group"
+            className="empty:hidden flex flex-col gap-y-6 mb-14"
+          >
+            <ThreadPrimitive.Messages>
+              {() => <ThreadMessage />}
+            </ThreadPrimitive.Messages>
           </div>
 
           <ThreadPrimitive.ViewportFooter
             className={cn(
               "flex flex-col gap-4 bg-background pb-4 md:pb-6 overflow-visible aui-thread-viewport-footer",
-              !isEmpty && "sticky bottom-0 mt-auto rounded-t-(--composer-radius)",
+              !isEmpty &&
+                "sticky bottom-0 mt-auto rounded-t-(--composer-radius)",
             )}
           >
             <ThreadScrollToBottom />
@@ -188,7 +206,7 @@ const ThreadScrollToBottom: FC = () => {
         />
       }
     >
-      <ArrowDownIcon strokeWidth={"1rem"} />
+      <ArrowDownIcon />
     </ThreadPrimitive.ScrollToBottom>
   );
 };
@@ -203,6 +221,21 @@ const ThreadWelcome: FC = () => {
       <h1 className="slide-in-from-bottom-full fill-mode-both font-semibold text-4xl tracking-tight animate-in duration-200 aui-thread-welcome-message-inner fade-in">
         {hasMultipleThreads ? "Welcome back!" : "Hello 👋"}
       </h1>
+      <div className="flex flex-col gap-2 mt-6 w-full max-w-md">
+        {CONVERSATION_STARTERS.map((starter, idx) => (
+          <ThreadPrimitive.Suggestion
+            key={idx}
+            prompt={starter}
+            method="replace"
+            autoSend
+            className="slide-in-from-bottom-2 bg-background hover:bg-muted/80 fill-mode-both px-4 py-2.5 border border-border/60 rounded-xl text-foreground text-sm text-left transition-colors animate-in cursor-pointer fade-in"
+            style={{ animationDelay: `${idx * 50}ms` }}
+          >
+            {starter}
+          </ThreadPrimitive.Suggestion>
+        ))}
+        <p className="opacity-50 mt-5 text-xs">Click <MessageSquareText className="inline mx-1 size-4" /> to see these suggestions after you've started a chat.</p>
+      </div>
     </div>
   );
 };
@@ -210,7 +243,9 @@ const ThreadWelcome: FC = () => {
 const ThreadSuggestions: FC = () => {
   return (
     <div className="flex flex-wrap justify-center items-center gap-2 px-4 w-full aui-thread-welcome-suggestions">
-      <ThreadPrimitive.Suggestions>{() => <ThreadSuggestionItem />}</ThreadPrimitive.Suggestions>
+      <ThreadPrimitive.Suggestions>
+        {() => <ThreadSuggestionItem />}
+      </ThreadPrimitive.Suggestions>
     </div>
   );
 };
@@ -328,7 +363,8 @@ const DataTimespanSelector: FC = () => {
     }
   }, [hasMessages, locked, aui]);
 
-  const label = EVENT_TIMESPANS.find((t) => t.id === timespan)?.label ?? timespan;
+  const label =
+    EVENT_TIMESPANS.find((t) => t.id === timespan)?.label ?? timespan;
 
   if (locked) {
     return (
@@ -338,12 +374,12 @@ const DataTimespanSelector: FC = () => {
     );
   }
 
-  const items = EVENT_TIMESPANS.filter((t) => t.id === "no" || available.includes(t.id)).map(
-    (t) => ({
-      value: t.id,
-      label: t.label,
-    }),
-  );
+  const items = EVENT_TIMESPANS.filter(
+    (t) => t.id === "no" || available.includes(t.id),
+  ).map((t) => ({
+    value: t.id,
+    label: t.label,
+  }));
 
   return (
     <div className="flex items-center px-1 text-muted-foreground text-xs">
@@ -366,6 +402,45 @@ const DataTimespanSelector: FC = () => {
       </SelectRoot>
       <span>events</span>
     </div>
+  );
+};
+
+const ConversationStartersPopover: FC = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        render={
+          <TooltipIconButton
+            tooltip="Suggestions"
+            side="bottom"
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="mr-2 text-muted-foreground"
+          />
+        }
+      >
+        <MessageSquareText className="size-6" />
+      </PopoverTrigger>
+      <PopoverContent side="top" sideOffset={8} className="w-80">
+        <div className="flex flex-col gap-1">
+          {CONVERSATION_STARTERS.map((starter, idx) => (
+            <ThreadPrimitive.Suggestion
+              key={idx}
+              prompt={starter}
+              method="replace"
+              autoSend
+              className="hover:bg-muted/80 px-3 py-2 rounded-lg text-foreground text-sm text-left transition-colors cursor-pointer"
+              onClick={() => setOpen(false)}
+            >
+              {starter}
+            </ThreadPrimitive.Suggestion>
+          ))}
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 
@@ -426,6 +501,9 @@ const ComposerAction: FC = () => {
               </ComposerPrimitive.StopDictation>
             </AuiIf>
           </AuiIf>
+          <AuiIf condition={(s) => !s.thread.isEmpty && !s.thread.isRunning}>
+            <ConversationStartersPopover />
+          </AuiIf>
           <AuiIf condition={(s) => !s.thread.isRunning}>
             <ComposerPrimitive.Send
               render={
@@ -440,7 +518,7 @@ const ComposerAction: FC = () => {
                 />
               }
             >
-              <ArrowUpIcon className="size-4.5 aui-composer-send-icon" />
+              <ArrowUpIcon className="size-5 aui-composer-send-icon" />
             </ComposerPrimitive.Send>
           </AuiIf>
           <AuiIf condition={(s) => s.thread.isRunning}>
@@ -521,7 +599,9 @@ const AssistantMessage: FC = () => {
                 );
               case "group-reasoning": {
                 if (ReasoningGroup) {
-                  return <ReasoningGroup group={part}>{children}</ReasoningGroup>;
+                  return (
+                    <ReasoningGroup group={part}>{children}</ReasoningGroup>
+                  );
                 }
                 const running = part.status.type === "running";
                 return (
@@ -653,7 +733,9 @@ const UserActionBar: FC = () => {
       className="flex flex-col items-end aui-user-action-bar-root"
     >
       <ActionBarPrimitive.Edit
-        render={<TooltipIconButton tooltip="Edit" className="aui-user-action-edit" />}
+        render={
+          <TooltipIconButton tooltip="Edit" className="aui-user-action-edit" />
+        }
       >
         <PencilIcon />
       </ActionBarPrimitive.Edit>
@@ -674,11 +756,19 @@ const EditComposer: FC = () => {
         />
         <div className="flex items-center self-end gap-1.5 mx-2.5 mb-2.5 aui-edit-composer-footer">
           <ComposerPrimitive.Cancel
-            render={<Button variant="ghost" size="sm" className="px-3.5 rounded-full h-8" />}
+            render={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="px-3.5 rounded-full h-8"
+              />
+            }
           >
             Cancel
           </ComposerPrimitive.Cancel>
-          <ComposerPrimitive.Send render={<Button size="sm" className="px-3.5 rounded-full h-8" />}>
+          <ComposerPrimitive.Send
+            render={<Button size="sm" className="px-3.5 rounded-full h-8" />}
+          >
             Update
           </ComposerPrimitive.Send>
         </div>
@@ -687,7 +777,10 @@ const EditComposer: FC = () => {
   );
 };
 
-const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({ className, ...rest }) => {
+const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
+  className,
+  ...rest
+}) => {
   return (
     <BranchPickerPrimitive.Root
       hideWhenSingleBranch
@@ -697,7 +790,9 @@ const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({ className, ...rest
       )}
       {...rest}
     >
-      <BranchPickerPrimitive.Previous render={<TooltipIconButton tooltip="Previous" />}>
+      <BranchPickerPrimitive.Previous
+        render={<TooltipIconButton tooltip="Previous" />}
+      >
         <ChevronLeftIcon />
       </BranchPickerPrimitive.Previous>
       <span className="font-medium aui-branch-picker-state">
