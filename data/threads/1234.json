@@ -1,4 +1,58 @@
 {
-  "threads": [],
-  "messages": []
+  "threads": [
+    {
+      "id": "zmFP4pZIGqfRMUAB",
+      "title": "Friendly Greeting Exchange",
+      "status": "regular",
+      "createdAt": "2026-07-23T17:49:42.248Z",
+      "updatedAt": "2026-07-23T17:52:16.223Z",
+      "dataTimespan": "all_available"
+    }
+  ],
+  "messages": [
+    {
+      "id": "h8J2IW6ZvXSQ4wRp",
+      "threadId": "zmFP4pZIGqfRMUAB",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Hello how are you"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T17:49:44.833Z"
+    },
+    {
+      "id": "jTywWzjZAd6VnynM",
+      "threadId": "zmFP4pZIGqfRMUAB",
+      "parentId": "h8J2IW6ZvXSQ4wRp",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me good. You good?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_0d7113e03637a637006a625437f7cc819383efa87b329f77f4"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T17:49:44.845Z"
+    }
+  ]
 }

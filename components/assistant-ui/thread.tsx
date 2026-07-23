@@ -142,11 +142,9 @@ const ThreadRoot: FC<{ isEmpty: boolean }> = ({ isEmpty }) => {
         data-slot="aui_thread-viewport"
         className="relative flex flex-col flex-1 overflow-x-auto overflow-y-scroll scroll-smooth"
       >
-        <div
-          className="mx-auto flex w-full max-w-(--thread-max-width) flex-1 flex-col px-4 pt-4"
-        >
+        <div className="mx-auto flex w-full max-w-(--thread-max-width) flex-1 flex-col px-4 pt-4">
           <AuiIf condition={isNewChatView}>
-            <div className="flex flex-1 items-center justify-center">
+            <div className="flex flex-1 justify-center items-center">
               <Welcome />
             </div>
           </AuiIf>
@@ -202,7 +200,7 @@ const ThreadScrollToBottom: FC = () => {
         />
       }
     >
-      <ArrowDownIcon />
+      <ArrowDownIcon strokeWidth={"1rem"} />
     </ThreadPrimitive.ScrollToBottom>
   );
 };

@@ -31,10 +31,42 @@ import { useAui, useAuiState } from "@assistant-ui/react";
 import { searchThreads as searchLocalThreads } from "@/lib/client-store";
 import packageJson from "../../package.json";
 import { PiCaretDownDuotone, PiGithubLogoDuotone } from "react-icons/pi";
+import clsx from "clsx";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+export const PhendoLogo = () => {
+  const aui = useAui();
+
+  return (
+    <SidebarMenuButton
+      size={"lg"}
+      className="cursor-pointer"
+      onClick={() => aui.threads().switchToNewThread()}
+    >
+      <div className="flex justify-center items-center bg-sidebar-primary p-0 rounded-lg aspect-square text-sidebar-primary-foreground aui-sidebar-header-icon-wrapper">
+        <PiCaretDownDuotone
+          className="block"
+          style={{
+            width: "calc(var(--spacing) * 8)",
+            height: "calc(var(--spacing) * 8)",
+          }}
+        />
+      </div>
+      {/* <div className="flex flex-col gap-0.5 leading-none aui-sidebar-header-heading">
+              <span className="font-semibold aui-sidebar-header-title">
+                Phendo
+              </span>
+            </div> */}
+    </SidebarMenuButton>
+  );
+};
 
 export function ThreadListSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const { state, isMobile } = useSidebar();
+  const collapsed = !isMobile && state === "collapsed";
+
   return (
     <Sidebar {...props} collapsible="icon" className="bg-muted">
       <SidebarHeader className="mb-2 border-b aui-sidebar-header">
@@ -43,7 +75,11 @@ export function ThreadListSidebar({
       <SidebarContent className="px-2 aui-sidebar-content">
         <ThreadList />
       </SidebarContent>
-      <SidebarFooter className="border-t aui-sidebar-footer">
+      <SidebarFooter
+        className={clsx("border-t aui-sidebar-footer", {
+          hidden: collapsed,
+        })}
+      >
         <div className="flex justify-between text-xs">
           <span className="opacity-50">v{packageJson.version}</span>
           <span className="opacity-50 hover:opacity-100">
@@ -62,13 +98,13 @@ export function ThreadListSidebar({
 }
 
 function SidebarHeaderContent() {
-  const { state, toggleSidebar } = useSidebar();
-  const aui = useAui();
-  const collapsed = state === "collapsed";
+  const { state, isMobile, toggleSidebar } = useSidebar();
+  const collapsed = !isMobile && state === "collapsed";
 
   if (collapsed) {
     return (
       <div className="flex flex-col items-center gap-4">
+        <PhendoLogo />
         <Button
           variant="ghost"
           size="icon-sm"
@@ -86,26 +122,7 @@ function SidebarHeaderContent() {
     <div className="flex justify-between items-center aui-sidebar-header-content">
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton
-            size={"lg"}
-            className="cursor-pointer"
-            onClick={() => aui.threads().switchToNewThread()}
-          >
-            <div className="flex justify-center items-center bg-sidebar-primary p-0 rounded-lg aspect-square text-sidebar-primary-foreground aui-sidebar-header-icon-wrapper">
-              <PiCaretDownDuotone
-                className="block"
-                style={{
-                  width: "calc(var(--spacing) * 8)",
-                  height: "calc(var(--spacing) * 8)",
-                }}
-              />
-            </div>
-            {/* <div className="flex flex-col gap-0.5 leading-none aui-sidebar-header-heading">
-              <span className="font-semibold aui-sidebar-header-title">
-                Phendo
-              </span>
-            </div> */}
-          </SidebarMenuButton>
+          <PhendoLogo />
         </SidebarMenuItem>
       </SidebarMenu>
       <div className="flex items-center gap-3">
@@ -207,7 +224,7 @@ function ThreadSearchDialog() {
       <DialogContent showCloseButton={false} className="sm:max-w-md">
         <DialogTitle className="sr-only">Search chats</DialogTitle>
         <div className="relative">
-          <SearchIcon className="top-1/2 left-3 absolute stroke-2 size-4 text-muted-foreground -translate-y-1/2 pointer-events-none" />
+          <SearchIcon className="top-1/2 left-3 absolute size-4 text-muted-foreground -translate-y-1/2 pointer-events-none" />
           <Input
             type="search"
             placeholder="Search chats..."
