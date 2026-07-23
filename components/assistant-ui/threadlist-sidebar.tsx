@@ -51,7 +51,8 @@ export function ThreadListSidebar({
               href="https://github.com/afreeorange/participatory-design-harness"
               title="View source on Github"
             >
-              <PiGithubLogoDuotone className="inline size-3.5 align-top" /> Source
+              <PiGithubLogoDuotone className="inline size-3.5 align-top" />{" "}
+              Source
             </a>
           </span>
         </div>
@@ -206,7 +207,7 @@ function ThreadSearchDialog() {
       <DialogContent showCloseButton={false} className="sm:max-w-md">
         <DialogTitle className="sr-only">Search chats</DialogTitle>
         <div className="relative">
-          <SearchIcon className="top-1/2 left-3 absolute size-4 text-muted-foreground -translate-y-1/2 pointer-events-none" />
+          <SearchIcon className="top-1/2 left-3 absolute stroke-2 size-4 text-muted-foreground -translate-y-1/2 pointer-events-none" />
           <Input
             type="search"
             placeholder="Search chats..."

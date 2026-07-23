@@ -133,6 +133,7 @@ export const EVENT_TIMESPANS = [
   { id: "past_6_months", label: "6 month old" },
   { id: "past_1_year", label: "1 year old" },
   { id: "past_2_years", label: "2 year old" },
+  { id: "no", label: "no" },
 ] as const;
 
 export const DAY_IN_MS = 86_400_000 as const;

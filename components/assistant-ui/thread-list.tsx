@@ -150,6 +150,8 @@ export const ThreadListNew = forwardRef<
   HTMLButtonElement,
   ComponentPropsWithoutRef<typeof Button> & { labelClassName?: string }
 >(({ className, labelClassName, children, ...props }, ref) => {
+  const { setOpenMobile } = useSidebar();
+
   return (
     <ThreadListPrimitive.New
       render={
@@ -161,6 +163,7 @@ export const ThreadListNew = forwardRef<
             "justify-start gap-2 px-2.5 hover:bg-border border-border rounded-md h-8 font-normal text-sm cursor-pointer",
             className,
           )}
+          onClick={() => setOpenMobile(false)}
           {...props}
         />
       }
@@ -201,6 +204,8 @@ const ThreadListSkeleton: FC = () => {
 };
 
 export const ThreadListItem: FC = () => {
+  const { setOpenMobile } = useSidebar();
+
   return (
     <ThreadListItemPrimitive.Root
       data-slot="aui_thread-list-item"
@@ -209,6 +214,7 @@ export const ThreadListItem: FC = () => {
       <ThreadListItemPrimitive.Trigger
         data-slot="aui_thread-list-item-trigger"
         className="flex flex-1 items-center px-2.5 group-data-active:pe-9 group-has-data-[state=open]:pe-9 group-has-focus-visible:pe-9 group-hover:pe-9 rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 min-w-0 h-full text-sm text-start"
+        onClick={() => setOpenMobile(false)}
       >
         <span
           data-slot="aui_thread-list-item-title"

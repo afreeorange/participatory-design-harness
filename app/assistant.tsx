@@ -9,10 +9,15 @@ import {
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { threadListAdapter } from "./thread-adapter";
 import { clientThreadListAdapter } from "./client-thread-adapter";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { ThreadListSidebar } from "@/components/assistant-ui/threadlist-sidebar";
 import { Thread } from "@/components/assistant-ui/thread";
 import { useEffect, useRef, type FC } from "react";
+import { PanelLeftOpenIcon } from "lucide-react";
 
 const ThreadRouter: FC = () => {
   const aui = useAui();
@@ -42,7 +47,9 @@ const ThreadRouter: FC = () => {
 
   // Sync URL when active thread or its remoteId changes
   const remoteId = useAuiState(
-    (s) => s.threads.threadItems.find((t) => t.id === s.threads.mainThreadId)?.remoteId,
+    (s) =>
+      s.threads.threadItems.find((t) => t.id === s.threads.mainThreadId)
+        ?.remoteId,
   );
 
   useEffect(() => {
@@ -82,6 +89,19 @@ const ThreadRouter: FC = () => {
   return null;
 };
 
+const MobileSidebarTrigger: FC = () => {
+  const { toggleSidebar } = useSidebar();
+  return (
+    <button
+      onClick={toggleSidebar}
+      className="md:hidden top-3 left-3 z-20 absolute hover:bg-muted p-1.5 rounded-md text-muted-foreground hover:text-foreground transition-colors"
+      aria-label="Open sidebar"
+    >
+      <PanelLeftOpenIcon className="size-6" />
+    </button>
+  );
+};
+
 export const Assistant = () => {
   const adapter = process.env.NEXT_PUBLIC_CLIENT_STORAGE
     ? clientThreadListAdapter
@@ -98,7 +118,8 @@ export const Assistant = () => {
       <SidebarProvider>
         <ThreadListSidebar />
         <SidebarInset>
-          <div className="h-dvh">
+          <div className="relative h-dvh">
+            <MobileSidebarTrigger />
             <Thread />
           </div>
         </SidebarInset>
