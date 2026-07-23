@@ -7,6 +7,21 @@
       "createdAt": "2026-07-23T17:49:42.248Z",
       "updatedAt": "2026-07-23T17:52:16.223Z",
       "dataTimespan": "all_available"
+    },
+    {
+      "id": "3PZCW8GwxaYTZRKs",
+      "title": "Casual Chat Initiation",
+      "status": "regular",
+      "createdAt": "2026-07-23T18:11:57.275Z",
+      "updatedAt": "2026-07-23T18:12:06.013Z"
+    },
+    {
+      "id": "ce2oQ82BBIEdQqro",
+      "title": "Casual Greetings and Emo Responses",
+      "status": "regular",
+      "createdAt": "2026-07-23T18:12:11.136Z",
+      "updatedAt": "2026-07-23T18:15:07.593Z",
+      "dataTimespan": "all_available"
     }
   ],
   "messages": [
@@ -53,6 +68,182 @@
         ]
       },
       "createdAt": "2026-07-23T17:49:44.845Z"
+    },
+    {
+      "id": "jJG2xes5nzVFkMB8",
+      "threadId": "3PZCW8GwxaYTZRKs",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Hi there"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:00.052Z"
+    },
+    {
+      "id": "I8D0khdLjqEAU4Sg",
+      "threadId": "3PZCW8GwxaYTZRKs",
+      "parentId": "jJG2xes5nzVFkMB8",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Hi. Me here. You need what?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_08eaf5ece2252585006a62596f34508197908febc90a0fc2b2"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:00.063Z"
+    },
+    {
+      "id": "vvnwt5ONnj0yZO1l",
+      "threadId": "3PZCW8GwxaYTZRKs",
+      "parentId": "I8D0khdLjqEAU4Sg",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Summarize my data"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:05.999Z"
+    },
+    {
+      "id": "7oggdJbPgaNRQS5q",
+      "threadId": "3PZCW8GwxaYTZRKs",
+      "parentId": "vvnwt5ONnj0yZO1l",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me can. You give data first.\n\nSend:\n- data file/text (paste)\n- what want: stats? trends? charts? outliers?\n- columns meaning + units\n- goal (paper? report? quick look?)",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_08eaf5ece2252585006a6259747d988197a7e433dee19630e6"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:06.013Z"
+    },
+    {
+      "id": "0SnzyNniUqI8ufNV",
+      "threadId": "ce2oQ82BBIEdQqro",
+      "parentId": null,
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "Hello"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:13.532Z"
+    },
+    {
+      "id": "dWkUfILj32KX1KbH",
+      "threadId": "ce2oQ82BBIEdQqro",
+      "parentId": "0SnzyNniUqI8ufNV",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Ugh. Hi. What you want?",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_03b9a347bdb56d4c006a62597cd4488196bb7eccb753bd855c"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:13.540Z"
+    },
+    {
+      "id": "GNpcXeD7JbzfwUXE",
+      "threadId": "ce2oQ82BBIEdQqro",
+      "parentId": "dWkUfILj32KX1KbH",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "user",
+        "metadata": {
+          "custom": {}
+        },
+        "parts": [
+          {
+            "type": "text",
+            "text": "summarize my data"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:20.473Z"
+    },
+    {
+      "id": "WONfJhqHO1aApwVL",
+      "threadId": "ce2oQ82BBIEdQqro",
+      "parentId": "GNpcXeD7JbzfwUXE",
+      "format": "ai-sdk/v6",
+      "content": {
+        "role": "assistant",
+        "parts": [
+          {
+            "type": "step-start"
+          },
+          {
+            "type": "text",
+            "text": "Me look at 50 rows.\n\n**Emotion count (how many objects):**\n- curiosity 7\n- happiness 6\n- calm 6\n- surprise 6\n- sadness 5\n- anxiety 5\n- love 5\n- excitement 5\n- fear 4\n- frustration 3\n- boredom 3\n- anger 2\n\n**Intensity count:**\n- medium 21\n- high 17\n- low 12\n\n**High intensity by emotion:**\n- curiosity: notebook, rocket\n- happiness: dog\n- calm: window\n- surprise: banana, mountain\n- sadness: umbrella, bed\n- anxiety: phone, microphone\n- love: guitar, blanket\n- excitement: computer, coffee\n- fear: bicycle\n- boredom: hat\n- anger: car\n- frustration: none",
+            "providerMetadata": {
+              "openai": {
+                "itemId": "msg_03b9a347bdb56d4c006a625981fa5081968fbab7bbe016b392"
+              }
+            },
+            "state": "done"
+          }
+        ]
+      },
+      "createdAt": "2026-07-23T18:12:20.491Z"
     }
   ]
 }

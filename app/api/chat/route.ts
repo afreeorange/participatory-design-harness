@@ -26,9 +26,13 @@ export async function POST(req: Request) {
   console.log(`${badge} ${count} ${kleur.green("→")} ${model} ${kleur.dim(" ⌾ ")} ${context}`);
 
   let systemPrompt: string;
-  let patientData: string;
+  let patientData: string | undefined;
 
-  if (process.env.CI) {
+  if (dataTimespan === "no") {
+    systemPrompt = process.env.CI
+      ? (await import("@/lib/baked.generated")).SYSTEM_PROMPT
+      : await loadSystemPrompt();
+  } else if (process.env.CI) {
     const baked = await import("@/lib/baked.generated");
     systemPrompt = baked.SYSTEM_PROMPT;
     patientData = baked.PATIENT_DATA[dataTimespan] ?? "";
@@ -39,7 +43,9 @@ export async function POST(req: Request) {
     ]);
   }
 
-  const system = [systemPrompt, "--- Patient Data (CSV) ---", patientData].join("\n\n");
+  const system = patientData
+    ? [systemPrompt, "--- Patient Data (CSV) ---", patientData].join("\n\n")
+    : systemPrompt;
 
   const result = streamText({
     model: openai(config?.modelName ?? DEFAULT_MODEL),

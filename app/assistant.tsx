@@ -9,11 +9,7 @@ import {
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { threadListAdapter } from "./thread-adapter";
 import { clientThreadListAdapter } from "./client-thread-adapter";
-import {
-  SidebarInset,
-  SidebarProvider,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { ThreadListSidebar } from "@/components/assistant-ui/threadlist-sidebar";
 import { Thread } from "@/components/assistant-ui/thread";
 import { useEffect, useRef, type FC } from "react";
@@ -47,9 +43,7 @@ const ThreadRouter: FC = () => {
 
   // Sync URL when active thread or its remoteId changes
   const remoteId = useAuiState(
-    (s) =>
-      s.threads.threadItems.find((t) => t.id === s.threads.mainThreadId)
-        ?.remoteId,
+    (s) => s.threads.threadItems.find((t) => t.id === s.threads.mainThreadId)?.remoteId,
   );
 
   useEffect(() => {

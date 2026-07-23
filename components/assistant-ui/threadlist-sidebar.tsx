@@ -2,12 +2,7 @@
 
 import type * as React from "react";
 import { useState, useEffect, useRef } from "react";
-import {
-  PanelLeftCloseIcon,
-  PanelLeftOpenIcon,
-  SearchIcon,
-  Triangle,
-} from "lucide-react";
+import { PanelLeftCloseIcon, PanelLeftOpenIcon, SearchIcon, Triangle } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -21,12 +16,7 @@ import {
 import { ThreadList } from "@/components/assistant-ui/thread-list";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useAui, useAuiState } from "@assistant-ui/react";
 import { searchThreads as searchLocalThreads } from "@/lib/client-store";
 import packageJson from "../../package.json";
@@ -61,9 +51,7 @@ export const PhendoLogo = () => {
   );
 };
 
-export function ThreadListSidebar({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function ThreadListSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state, isMobile } = useSidebar();
   const collapsed = !isMobile && state === "collapsed";
 
@@ -87,8 +75,7 @@ export function ThreadListSidebar({
               href="https://github.com/afreeorange/participatory-design-harness"
               title="View source on Github"
             >
-              <PiGithubLogoDuotone className="inline size-3.5 align-top" />{" "}
-              Source
+              <PiGithubLogoDuotone className="inline size-3.5 align-top" /> Source
             </a>
           </span>
         </div>
@@ -105,12 +92,7 @@ function SidebarHeaderContent() {
     return (
       <div className="flex flex-col items-center gap-4">
         <PhendoLogo />
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          onClick={toggleSidebar}
-          aria-label="Expand sidebar"
-        >
+        <Button variant="ghost" size="icon-sm" onClick={toggleSidebar} aria-label="Expand sidebar">
           <PanelLeftOpenIcon className="size-6" />
         </Button>
         <ThreadSearchDialog />
@@ -237,9 +219,7 @@ function ThreadSearchDialog() {
         {query.trim() && (
           <div className="flex flex-col gap-0.5 -mx-4 px-4 max-h-64 overflow-y-auto">
             {searching ? (
-              <div className="py-4 text-muted-foreground text-sm text-center">
-                Searching...
-              </div>
+              <div className="py-4 text-muted-foreground text-sm text-center">Searching...</div>
             ) : results.length === 0 ? (
               <div className="py-4 text-muted-foreground text-sm text-center">
                 Couldn't find any chats with that term. Try another?
@@ -252,13 +232,9 @@ function ThreadSearchDialog() {
                   onClick={() => handleSelect(r.id)}
                   className="hover:bg-muted px-2.5 py-1.5 rounded-md text-left cursor-pointer"
                 >
-                  <div className="text-sm truncate">
-                    {r.title || "New Chat"}
-                  </div>
+                  <div className="text-sm truncate">{r.title || "New Chat"}</div>
                   {r.preview && (
-                    <div className="text-muted-foreground text-xs truncate">
-                      {r.preview}
-                    </div>
+                    <div className="text-muted-foreground text-xs truncate">{r.preview}</div>
                   )}
                 </button>
               ))

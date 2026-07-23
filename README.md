@@ -125,17 +125,18 @@ MIT
 
 ## TODO
 
+- [ ] "Here are some questions you could ask me"
 - [x] Allow participants to pick the timespan
 - [x] Title above chats
 - [x] Model picker -- fix to ChatGippity 5.2
 - [x] Collapsible indicator
 - [x] Mini search as modal
 - [ ] Quotes around chat summaries?
-- [ ] Try with Lab key and lab data
+- [x] Try with Lab key and lab data
 - [x] Remove edit button
 - [x] Remove loop button
 - [x] Remove markdown button
-- [ ] Remove copy button
+- [ ] ~~Remove copy button~~
 - [x] Fix colors?
 - [x] Vercel for demo?
 - [ ] Graceful/human error handling in UI?
